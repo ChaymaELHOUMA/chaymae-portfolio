@@ -124,82 +124,125 @@ function Nav({ active }) {
   const links = ['Accueil', 'À Propos', 'Compétences', 'Projets', 'Formation', 'Certifications', 'Contact'];
   const ids    = ['home',   'about',    'skills',       'projects','formation','certifications', 'contact'];
   const [scrolled, setScrolled] = useState(false);
-  
+  const [menuOpen, setMenuOpen] = useState(false);
+
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', fn);
     return () => window.removeEventListener('scroll', fn);
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [menuOpen]);
+
+  const closeMenu = () => setMenuOpen(false);
+
+  const linkStyle = (id) => ({
+    fontFamily: 'var(--font-ui)',
+    fontSize: '0.75rem',
+    fontWeight: 700,
+    letterSpacing: '0.12em',
+    textTransform: 'uppercase',
+    color: active === id ? 'var(--chambray)' : 'var(--espresso)',
+    opacity: active === id ? 1 : 0.5,
+    transition: 'var(--transition-fast)',
+    position: 'relative',
+  });
+
   return (
-    <nav className={`glass`} style={{
-      position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000,
-      height: scrolled ? '70px' : '90px',
-      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-      padding: '0 8vw',
-      transition: 'var(--transition-smooth)',
-      borderBottom: scrolled ? '1px solid rgba(121, 163, 195, 0.1)' : '1px solid transparent',
-      background: scrolled ? 'var(--white-glass)' : 'transparent',
-    }}>
-      <div style={{
-        fontFamily: 'var(--font-display)',
-        fontSize: '1.8rem',
-        fontWeight: 700,
-        color: 'var(--espresso)',
-        cursor: 'pointer'
+    <>
+      <nav className="glass" style={{
+        position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000,
+        height: scrolled || menuOpen ? '70px' : '90px',
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        padding: '0 clamp(16px, 5vw, 8vw)',
+        transition: 'var(--transition-smooth)',
+        borderBottom: scrolled || menuOpen ? '1px solid rgba(121, 163, 195, 0.1)' : '1px solid transparent',
+        background: scrolled || menuOpen ? 'var(--white-glass)' : 'transparent',
       }}>
-        C<span style={{ color: 'var(--chambray)' }}>.</span>EH
-      </div>
-      
-      <div style={{ display: 'flex', gap: '2.5rem' }}>
+        <a href="#home" className="nav-logo" style={{
+          fontFamily: 'var(--font-display)',
+          fontSize: '1.8rem',
+          fontWeight: 700,
+          color: 'var(--espresso)',
+          cursor: 'pointer',
+        }} onClick={closeMenu}>
+          C<span style={{ color: 'var(--chambray)' }}>.</span>EH
+        </a>
+
+        <div className="nav-desktop">
+          {links.map((l, i) => (
+            <a key={l} href={`#${ids[i]}`} style={linkStyle(ids[i])}>
+              {l}
+              {active === ids[i] && (
+                <div style={{
+                  position: 'absolute', bottom: -6, left: 0, width: '100%', height: 2,
+                  background: 'var(--chambray)', borderRadius: 2,
+                }} />
+              )}
+            </a>
+          ))}
+        </div>
+
+        <button
+          type="button"
+          className="nav-mobile-btn"
+          aria-label={menuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
+          aria-expanded={menuOpen}
+          onClick={() => setMenuOpen((o) => !o)}
+        >
+          {menuOpen ? (
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+              <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          ) : (
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+              <line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
+          )}
+        </button>
+      </nav>
+
+      <div className={`nav-mobile-menu${menuOpen ? ' open' : ''}`} aria-hidden={!menuOpen}>
         {links.map((l, i) => (
-          <a key={l} href={`#${ids[i]}`} style={{
-            fontFamily: 'var(--font-ui)',
-            fontSize: '0.75rem',
-            fontWeight: 700,
-            letterSpacing: '0.12em',
-            textTransform: 'uppercase',
-            color: active === ids[i] ? 'var(--chambray)' : 'var(--espresso)',
-            opacity: active === ids[i] ? 1 : 0.5,
-            transition: 'var(--transition-fast)',
-            position: 'relative'
-          }}>
+          <a
+            key={l}
+            href={`#${ids[i]}`}
+            className={active === ids[i] ? 'active' : ''}
+            onClick={closeMenu}
+          >
             {l}
-            {active === ids[i] && (
-              <div style={{
-                position: 'absolute', bottom: -6, left: 0, width: '100%', height: 2,
-                background: 'var(--chambray)', borderRadius: 2
-              }} />
-            )}
           </a>
         ))}
       </div>
-    </nav>
+    </>
   );
 }
 
 function Hero() {
   return (
-    <section id="home" style={{
+    <section id="home" className="hero-section" style={{
       minHeight: '100vh',
       background: `radial-gradient(circle at 70% 30%, var(--glacier) 0%, var(--white) 100%)`,
       display: 'flex', alignItems: 'center',
       position: 'relative', overflow: 'hidden',
-      padding: '0 8vw'
+      padding: '100px clamp(16px, 5vw, 8vw) 4rem',
     }}>
       {/* Decorative Elements */}
-      <div style={{
+      <div className="hero-decor-large" style={{
         position: 'absolute', top: '15%', right: '10%', width: '400px', height: '400px',
         background: 'var(--chambray)', opacity: 0.05, borderRadius: '50%', filter: 'blur(80px)',
-        animation: 'float 10s ease-in-out infinite'
+        animation: 'float 10s ease-in-out infinite',
       }} />
-      <div style={{
+      <div className="hero-decor-small" style={{
         position: 'absolute', bottom: '10%', left: '5%', width: '300px', height: '300px',
         background: 'var(--clay)', opacity: 0.05, borderRadius: '50%', filter: 'blur(60px)',
-        animation: 'float 8s ease-in-out infinite reverse'
+        animation: 'float 8s ease-in-out infinite reverse',
       }} />
 
-      <div style={{ maxWidth: '1200px', width: '100%', display: 'grid', gridTemplateColumns: '1.2fr 0.8fr', gap: '4rem', alignItems: 'center', zIndex: 10 }}>
+      <div className="hero-grid" style={{ maxWidth: '1200px', zIndex: 10 }}>
         <div>
           <div style={{
             display: 'inline-flex', alignItems: 'center', gap: '10px',
@@ -228,7 +271,7 @@ function Hero() {
             robustes et intelligentes pour répondre aux défis de demain.
           </p>
 
-          <div style={{ display: 'flex', gap: '1.2rem', flexWrap: 'wrap', animation: 'fadeUp 0.8s 0.6s ease forwards', opacity: 0 }}>
+          <div className="hero-actions" style={{ animation: 'fadeUp 0.8s 0.6s ease forwards', opacity: 0 }}>
             <a href="#projects" className="btn" style={{
               padding: '16px 28px', background: 'var(--espresso)', color: 'var(--white)',
               borderRadius: '8px', fontWeight: 700, fontSize: '0.85rem', letterSpacing: '0.05em',
@@ -271,7 +314,7 @@ function Hero() {
           </div>
         </div>
 
-        <div style={{ position: 'relative', animation: 'fadeIn 1.5s 0.5s ease forwards', opacity: 0, marginTop: '90px' }}>
+        <div className="hero-profile" style={{ position: 'relative', animation: 'fadeIn 1.5s 0.5s ease forwards', opacity: 0, marginTop: '90px' }}>
           <div className="glass" style={{
             width: '100%', aspectRatio: '4/5', borderRadius: '24px', overflow: 'hidden',
             display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
@@ -316,7 +359,7 @@ function Hero() {
 
 function SectionHeader({ label, title, center = false, dark = false, visible }) {
   return (
-    <div style={{
+    <div className="section-header-wrap" style={{
       textAlign: center ? 'center' : 'left',
       marginBottom: '4rem',
       opacity: visible ? 1 : 0,
@@ -362,7 +405,7 @@ function About() {
         background: 'radial-gradient(circle, rgba(121,163,195,0.1) 0%, transparent 70%)',
         pointerEvents: 'none',
       }} />
-      <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1.4fr', gap: '5rem', alignItems: 'center' }}>
+      <div className="about-grid" style={{ maxWidth: '1100px', margin: '0 auto' }}>
         {/* Left – label + title */}
         <div style={{ opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateX(-30px)', transition: 'all 0.9s ease' }}>
           <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', fontWeight: 600, color: 'var(--chambray)', textTransform: 'uppercase', letterSpacing: '0.2em', display: 'block', marginBottom: '1.2rem' }}>
@@ -395,7 +438,7 @@ function About() {
         </div>
         {/* Right – paragraphs */}
         <div style={{ opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateX(30px)', transition: 'all 0.9s 0.2s ease' }}>
-          <div style={{
+          <div className="about-card" style={{
             background: 'rgba(210,226,236,0.05)',
             border: '1px solid rgba(210,226,236,0.12)',
             borderRadius: '20px', padding: '3rem',
@@ -471,9 +514,7 @@ function Projects() {
     <section id="projects" ref={ref} className="section-padding" style={{ background: 'var(--glacier)', backgroundOpacity: 0.3 }}>
       <SectionHeader label="Réalisations" title="Projets" visible={visible} />
       
-      <div style={{
-        display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '2.5rem'
-      }}>
+      <div className="projects-grid">
         {PROJECTS.map((project, idx) => (
           <div key={project.title} style={{
             background: 'var(--white)', borderRadius: '24px', overflow: 'hidden',
@@ -486,7 +527,7 @@ function Projects() {
           onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-12px)'; e.currentTarget.style.boxShadow = 'var(--shadow-lg)'; }}
           onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'var(--shadow-md)'; }}
           >
-            <div style={{ height: '240px', background: project.accent, position: 'relative', overflow: 'hidden' }}>
+            <div className="project-header" style={{ height: '240px', background: project.accent, position: 'relative', overflow: 'hidden' }}>
               {/* If project has an image, show it; otherwise show abstract background */}
               {project.image ? (
                 <img
@@ -528,7 +569,7 @@ function Projects() {
               )}
             </div>
             
-            <div style={{ padding: '2.5rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
+            <div className="project-card-inner" style={{ padding: '2.5rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
               <h3 style={{ fontSize: '1.6rem', color: 'var(--espresso)', marginBottom: '1rem' }}>{project.title}</h3>
               <p style={{ fontSize: '0.95rem', color: 'var(--clay)', lineHeight: 1.7, marginBottom: '2rem', flex: 1 }}>{project.desc}</p>
               
@@ -564,18 +605,18 @@ function Experience() {
     <section id="formation" ref={ref} className="section-padding" style={{ background: 'var(--espresso)' }}>
       <SectionHeader label="Parcours" title="Formation & Expérience" dark visible={visible} />
       
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '5rem', alignItems: 'start' }}>
-        <div style={{ position: 'relative', paddingLeft: '2rem', borderLeft: '2px solid rgba(121,163,195,0.2)' }}>
+      <div className="experience-grid">
+        <div className="experience-timeline" style={{ position: 'relative', paddingLeft: '2rem', borderLeft: '2px solid rgba(121,163,195,0.2)' }}>
            {experiences.map((exp, idx) => (
             <div key={idx} style={{
               marginBottom: '3.5rem', position: 'relative',
               opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateX(-20px)',
               transition: `all 0.8s ${idx * 0.15}s`
             }}>
-              <div style={{
+              <div className="experience-dot" style={{
                 position: 'absolute', left: '-2.7rem', top: '0', width: '20px', height: '20px',
                 borderRadius: '50%', background: 'var(--chambray)', border: '4px solid var(--espresso)',
-                boxShadow: '0 0 0 4px rgba(121,163,195,0.1)'
+                boxShadow: '0 0 0 4px rgba(121,163,195,0.1)',
               }} />
               <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--chambray)', fontWeight: 600 }}>{exp.year}</span>
               <h4 style={{ fontSize: '1.4rem', color: 'var(--white)', marginTop: '0.5rem', marginBottom: '0.25rem' }}>{exp.title}</h4>
@@ -589,7 +630,7 @@ function Experience() {
           opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateX(20px)',
           transition: 'all 1s 0.5s'
         }}>
-          <div className="glass" style={{ padding: '3rem', borderRadius: '24px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)' }}>
+          <div className="glass experience-side-card" style={{ padding: '3rem', borderRadius: '24px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)' }}>
             <h3 style={{ fontSize: '1.8rem', color: 'var(--chambray)', marginBottom: '2rem' }}>Expérience Professionnelle</h3>
             <div style={{ marginBottom: '2rem' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
@@ -647,6 +688,7 @@ function Certifications() {
             <div 
               key={cert.name + i} 
               onClick={() => { if (cert.link) window.open(cert.link, '_blank', 'noopener,noreferrer'); }}
+              className="cert-card"
               style={{
                 background: 'rgba(255, 255, 255, 0.7)',
                 backdropFilter: 'blur(10px)',
@@ -809,7 +851,7 @@ function Contact() {
       }} />
 
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: '6rem', alignItems: 'center' }}>
+        <div className="contact-grid">
           
           <div style={{
             opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateX(-30px)',
@@ -841,13 +883,8 @@ function Contact() {
                     window.location.href = item.link;
                   }
                 }}
-                style={{
-                  display: 'flex', alignItems: 'center', gap: '1.5rem',
-                  padding: '1.8rem 2.5rem', borderRadius: '24px',
-                  background: 'var(--white)', border: '1px solid rgba(121, 163, 195, 0.1)',
-                  boxShadow: 'var(--shadow-sm)', transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                  textDecoration: 'none'
-                }}
+                className="contact-card"
+                style={{ textDecoration: 'none' }}
                 onMouseEnter={e => { 
                   e.currentTarget.style.transform = 'translateX(15px)'; 
                   e.currentTarget.style.boxShadow = 'var(--shadow-lg)';
@@ -859,11 +896,11 @@ function Contact() {
                   e.currentTarget.style.borderColor = 'rgba(121, 163, 195, 0.1)';
                 }}
               >
-                <div style={{ 
+                <div className="contact-icon" style={{ 
                   width: 54, height: 54, borderRadius: '14px', 
                   background: `${item.color}10`, color: item.color,
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  transition: 'all 0.3s'
+                  transition: 'all 0.3s',
                 }}>
                   {item.icon}
                 </div>
@@ -871,7 +908,7 @@ function Contact() {
                   <div style={{ fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--clay)', letterSpacing: '0.15em', marginBottom: '0.3rem' }}>
                     {item.label}
                   </div>
-                  <div style={{ fontSize: '1.1rem', fontWeight: 600, color: 'var(--espresso)' }}>
+                  <div className="contact-card-value">
                     {item.val}
                   </div>
                 </div>
@@ -892,15 +929,15 @@ function Contact() {
 
 function Footer() {
   return (
-    <footer style={{ padding: '4rem 8vw', background: 'var(--espresso)', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+    <footer style={{ padding: '4rem clamp(16px, 5vw, 8vw)', background: 'var(--espresso)', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+      <div className="footer-inner">
         <div>
           <div style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--white)', marginBottom: '0.5rem' }}>
             C<span style={{ color: 'var(--chambray)' }}>.</span>EH
           </div>
           <p style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.3)' }}>© 2026 Chayma EL HOUMA. Fait avec passion.</p>
         </div>
-        <div style={{ display: 'flex', gap: '2rem' }}>
+        <div className="footer-links">
           {['Accueil', 'Projets', 'Contact'].map(link => (
             <a key={link} href={`#${link.toLowerCase()}`} style={{ fontSize: '0.8rem', color: 'var(--bisque)', fontWeight: 600, transition: 'var(--transition-fast)' }}
             onMouseEnter={e => e.target.style.color = 'var(--chambray)'}
