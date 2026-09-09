@@ -3,53 +3,29 @@ import './index.css';
 
 /* ─── DATA ─── */
 const SKILLS = {
-  'Programmation': ['Python', 'JavaScript', 'Java', 'PHP', 'HTML', 'CSS'],
-  'Frameworks': ['React.js', 'Vue.js', 'Spring Boot', 'Laravel'],
-  'Bases de données': ['MySQL', 'PostgreSQL', 'SQLite'],
-  'Outils & DevOps': ['Docker', 'Git', 'GitHub', 'Postman', 'VS Code', 'IntelliJ'],
-  'IA / Data': ['LangChain', 'FAISS', 'HuggingFace', 'Streamlit'],
+  'Backend Development': ['Java 17', 'Spring Boot', 'Spring MVC', 'Spring Security', 'Spring Data JPA', 'Hibernate', 'REST APIs', 'Spring Modulith', 'Clean Architecture', 'Microservices'],
+  'Databases': ['PostgreSQL', 'MySQL', 'SQLite'],
+  'AI Engineering': ['Large Language Models (LLMs)', 'Retrieval-Augmented Generation (RAG)', 'LangChain', 'Prompt Engineering', 'FAISS', 'HuggingFace'],
+  'Testing': ['JUnit', 'Mockito', 'Jest', 'Supertest', 'Postman'],
+  'Tools': ['Docker', 'Maven', 'Git', 'GitHub', 'IntelliJ IDEA', 'VS Code'],
 };
 
 const PROJECTS = [
   {
-    title: 'Chatbot Intelligent RAG',
-    tag: 'IA · NLP',
-    desc: "Chatbot capable d'interroger des documents PDF et de fournir des réponses précises en langage naturel grâce à l'analyse sémantique du contenu.",
-    tech: ['Python', 'Streamlit', 'LangChain', 'FAISS', 'HuggingFace', 'SQLite'],
-    accent: 'var(--chambray)',
-    link: 'https://github.com/ChaymaELHOUMA/chatbot-pdf-project.git',
-  },
-  {
-    title: 'Plateforme éducative interactive',
-    tag: 'Fullstack · IA',
-    desc: 'Plateforme interactive pour l\'apprentissage des langages de programmation avec intégration IA.',
-    tech: ['React', 'Spring Boot', 'PostgreSQL', 'Git', 'Postman'],
-    accent: 'var(--clay)',
-    link: 'https://github.com/sofiastron/CodeArena.git',
-  },
-  {
-    title: 'EcoRide – Covoiturage',
+    title: 'Carpooling Platform',
     tag: 'Web · Fullstack',
-    desc: 'Plateforme de covoiturage éco-responsable avec gestion des trajets, réservations et profils utilisateurs.',
-    tech: ['Spring Boot', 'React', 'MySQL', 'Postman', 'Git'],
+    desc: 'Enterprise microservices-based carpooling platform developed with Java and Spring Boot.',
+    tech: ['Java 17', 'Spring Boot', 'Spring Security', 'MySQL', 'Docker', 'Git', 'REST APIs'],
     accent: 'var(--espresso)',
     link: 'https://github.com/sofiastron/EcoRide.git',
   },
   {
-    title: 'Gestion des Étudiants',
-    tag: 'Fullstack',
-    desc: 'Application web complète de gestion des étudiants, encadrants, propositions de sujets et soutenances.',
-    tech: ['Spring Boot', 'Vue.js', 'MySQL', 'Git', 'Postman'],
-    accent: 'var(--chambray)',
-    link: 'https://github.com/sofiastron/ProjectFlow.git',
-  },
-  {
-    title: 'Gestion de Présence',
-    tag: 'Fullstack',
-    desc: 'Système de gestion de présence avec reconnaissance faciale et QR Code pour l\'automatisation.',
-    tech: ['Vue.js', 'Laravel', 'MySQL', 'Reconnaissance faciale', 'QR Code'],
-    accent: 'var(--bisque)',
-    link: 'https://github.com/sofiastron/AgoraCampus.git',
+    title: 'Interactive Learning Platform',
+    tag: 'Fullstack · AI',
+    desc: 'Interactive educational platform featuring real-time communication and course management.',
+    tech: ['Java 17', 'Spring Boot', 'React', 'PostgreSQL', 'WebSocket', 'Docker'],
+    accent: 'var(--clay)',
+    link: 'https://github.com/sofiastron/CodeArena.git',
   },
 ];
 
@@ -121,8 +97,8 @@ function useVisible(threshold = 0.15) {
 /* ─── COMPONENTS ─── */
 
 function Nav({ active }) {
-  const links = ['Accueil', 'À Propos', 'Compétences', 'Projets', 'Formation', 'Certifications', 'Contact'];
-  const ids    = ['home',   'about',    'skills',       'projects','formation','certifications', 'contact'];
+  const links = ['Home', 'About', 'Skills', 'Experience', 'Projects', 'Education', 'Certifications', 'Contact'];
+  const ids    = ['home', 'about', 'skills', 'experience', 'projects', 'education', 'certifications', 'contact'];
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -189,7 +165,7 @@ function Nav({ active }) {
         <button
           type="button"
           className="nav-mobile-btn"
-          aria-label={menuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
+          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
           aria-expanded={menuOpen}
           onClick={() => setMenuOpen((o) => !o)}
         >
@@ -251,7 +227,7 @@ function Hero() {
           }}>
             <div style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--chambray)', animation: 'pulse-glow 2s infinite' }} />
             <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', fontWeight: 500, color: 'var(--clay)', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
-              Élève ingénieure · ENSA Safi
+              Java 17 • Spring Boot • REST APIs • Generative AI
             </span>
           </div>
 
@@ -267,8 +243,7 @@ function Hero() {
             fontSize: '1.15rem', color: 'var(--clay)', maxWidth: '540px', marginBottom: '3rem',
             animation: 'fadeUp 0.8s 0.4s ease forwards', opacity: 0, lineHeight: 1.7
           }}>
-            Développeuse full-stack & passionnée d'IA. Je conçois des solutions digitales élégantes, 
-            robustes et intelligentes pour répondre aux défis de demain.
+            Final-year Computer Science and Artificial Intelligence Engineering student specializing in Java 17, Spring Boot, scalable backend systems, RESTful API development, and AI-powered applications. Passionate about building enterprise software and integrating Generative AI technologies into modern backend systems.
           </p>
 
           <div className="hero-actions" style={{ animation: 'fadeUp 0.8s 0.6s ease forwards', opacity: 0 }}>
@@ -280,10 +255,10 @@ function Hero() {
             onMouseEnter={e => { e.target.style.transform = 'translateY(-5px)'; e.target.style.boxShadow = 'var(--shadow-lg)'; }}
             onMouseLeave={e => { e.target.style.transform = 'translateY(0)'; e.target.style.boxShadow = 'var(--shadow-md)'; }}
             >
-              Explorer mes projets
+              Explore my projects
             </a>
             
-            <a href="/Chayma_EL_HOUMA_CV.pdf" target="_blank" className="btn" style={{
+            <a href="/RESUME-CHAYMA_EL_HOUMA.pdf" target="_blank" className="btn" style={{
               padding: '16px 28px', background: 'var(--chambray)', color: 'var(--white)',
               borderRadius: '8px', fontWeight: 700, fontSize: '0.85rem', letterSpacing: '0.05em',
               transition: 'var(--transition-smooth)', boxShadow: 'var(--shadow-md)',
@@ -298,7 +273,7 @@ function Hero() {
                 <line x1="12" y1="18" x2="12" y2="12"></line>
                 <polyline points="9 15 12 12 15 15"></polyline>
               </svg>
-              Voir mon CV
+              View my Resume
             </a>
 
             <a href="#contact" className="btn" style={{
@@ -309,7 +284,7 @@ function Hero() {
             onMouseEnter={e => { e.target.style.background = 'rgba(58, 33, 25, 0.05)'; }}
             onMouseLeave={e => { e.target.style.background = 'transparent'; }}
             >
-              Me contacter
+              Contact me
             </a>
           </div>
         </div>
@@ -331,15 +306,14 @@ function Hero() {
             }}>CE</div>
             <h3 style={{ fontSize: '1.8rem', color: 'var(--espresso)', marginBottom: '0.5rem' }}>Chayma EL HOUMA</h3>
             <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--chambray)', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '2rem' }}>
-              Génie Informatique & IA
+              Backend Java Developer
             </p>
             
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', width: '100%' }}>
               {[
-                { label: 'Projets', val: '5+' },
+                { label: 'Projects', val: '5+' },
                 { label: 'Certifs', val: '8' },
-                { label: 'Clubs', val: '2' },
-                { label: 'Langues', val: '3' }
+                { label: 'Languages', val: '3' }
               ].map(stat => (
                 <div key={stat.label} style={{ padding: '1rem', background: 'var(--espresso-soft)', borderRadius: '12px' }}>
                   <div style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--espresso)' }}>{stat.val}</div>
@@ -389,10 +363,7 @@ function SectionHeader({ label, title, center = false, dark = false, visible }) 
 
 function About() {
   const [ref, visible] = useVisible();
-  const highlights = [
-    { icon: '🎓', text: 'ENSA Safi – Génie Informatique & IA' },
-    { icon: '💻', text: 'Développement web full-stack moderne' },
-  ];
+  
   return (
     <section id="about" ref={ref} className="section-padding" style={{
       background: `linear-gradient(160deg, var(--espresso) 0%, #5c3527 60%, #3A2119 100%)`,
@@ -405,36 +376,16 @@ function About() {
         background: 'radial-gradient(circle, rgba(121,163,195,0.1) 0%, transparent 70%)',
         pointerEvents: 'none',
       }} />
-      <div className="about-grid" style={{ maxWidth: '1100px', margin: '0 auto' }}>
+      <div className="about-grid" style={{ maxWidth: '1100px', margin: '0 auto', gridTemplateColumns: '1fr' }}>
         {/* Left – label + title */}
-        <div style={{ opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateX(-30px)', transition: 'all 0.9s ease' }}>
+        <div style={{ opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateX(-30px)', transition: 'all 0.9s ease', marginBottom: '3rem' }}>
           <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', fontWeight: 600, color: 'var(--chambray)', textTransform: 'uppercase', letterSpacing: '0.2em', display: 'block', marginBottom: '1.2rem' }}>
-            À Propos
+            About
           </span>
           <h2 style={{ fontSize: 'clamp(2.5rem, 4.5vw, 3.8rem)', fontWeight: 300, color: 'var(--bisque)', lineHeight: 1.1, marginBottom: '2rem' }}>
-            Qui suis-<em style={{ fontStyle: 'italic', fontWeight: 700, color: 'var(--glacier)' }}>je ?</em>
+            About <em style={{ fontStyle: 'italic', fontWeight: 700, color: 'var(--glacier)' }}>Me</em>
           </h2>
-          <div style={{ width: 60, height: 3, background: 'var(--chambray)', borderRadius: 2, marginBottom: '2.5rem' }} />
-          {/* Highlight badges */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-            {highlights.map((h, i) => (
-              <div key={i} style={{
-                display: 'flex', alignItems: 'center', gap: '0.9rem',
-                opacity: visible ? 1 : 0,
-                transform: visible ? 'none' : 'translateX(-20px)',
-                transition: `all 0.7s ${0.3 + i * 0.15}s ease`,
-              }}>
-                <div style={{
-                  width: 42, height: 42, borderRadius: '10px', flexShrink: 0,
-                  background: 'rgba(121,163,195,0.12)',
-                  border: '1px solid rgba(121,163,195,0.25)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: '1.2rem',
-                }}>{h.icon}</div>
-                <span style={{ fontFamily: 'var(--font-ui)', fontSize: '0.9rem', color: 'rgba(210,226,236,0.8)', fontWeight: 500 }}>{h.text}</span>
-              </div>
-            ))}
-          </div>
+          <div style={{ width: 60, height: 3, background: 'var(--chambray)', borderRadius: 2 }} />
         </div>
         {/* Right – paragraphs */}
         <div style={{ opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateX(30px)', transition: 'all 0.9s 0.2s ease' }}>
@@ -445,9 +396,9 @@ function About() {
             backdropFilter: 'blur(10px)',
           }}>
             {[
-              "Je suis étudiante en 2ᵉ année cycle d'ingénieur en Génie Informatique et Intelligence Artificielle à l'ENSA Safi.",
-              "Je suis spécialisée dans le développement d'applications web modernes et les systèmes intelligents basés sur l'intelligence artificielle.",
-              "J'ai une forte passion pour la conception de solutions logicielles, le développement backend et les technologies IA comme les chatbots et la recherche sémantique.",
+              "I am a final-year Computer Science and Artificial Intelligence engineering student passionate about backend software engineering.",
+              "My primary expertise is Java 17 and Spring Boot, where I enjoy designing REST APIs, scalable architectures, and enterprise applications.",
+              "I also have experience integrating Generative AI technologies such as Large Language Models (LLMs) and Retrieval-Augmented Generation (RAG) into backend systems to build intelligent software solutions.",
             ].map((para, i) => (
               <p key={i} style={{
                 fontFamily: 'var(--font-ui)',
@@ -470,7 +421,7 @@ function Skills() {
   const [ref, visible] = useVisible();
   return (
     <section id="skills" ref={ref} className="section-padding" style={{ background: 'var(--white)' }}>
-      <SectionHeader label="Expertise" title="Compétences Techniques" visible={visible} />
+      <SectionHeader label="Expertise" title="Technical Skills" visible={visible} />
       
       <div style={{
         display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem',
@@ -508,11 +459,97 @@ function Skills() {
   );
 }
 
+function ProfessionalExperience() {
+  const [ref, visible] = useVisible();
+  const experiences = [
+    {
+      company: 'Arimayi – France (Remote)',
+      role: 'Backend Java Developer Intern',
+      dates: '09 June 2026 – 07 sptember',
+      desc: [
+        'Developed the complete Asset Management module of the CyberWatch360 cybersecurity platform.',
+        'Built production-ready REST APIs using Java 17 and Spring Boot.',
+        'Implemented Spring Security, Spring Data JPA and PostgreSQL.',
+        'Wrote unit tests with JUnit and Mockito.',
+        'Designed UML diagrams and API documentation.',
+        'Collaborated using Git Flow.'
+      ],
+      tech: ['Java 17', 'Spring Boot', 'Spring Security', 'Spring Data JPA', 'PostgreSQL', 'Docker', 'JUnit', 'Mockito', 'Git']
+    },
+    {
+      company: 'Smart Automation Technologies – Remote',
+      role: 'Software Test Automation Intern',
+      dates: '9 July 2026 – 9 September 2026',
+      desc: [
+        'Developing a Java Spring Boot backend orchestrator integrating Large Language Models.',
+        'Building REST APIs.',
+        'Implementing prompt engineering.',
+        'AST-based source code analysis.',
+        'Automated software test generation and evaluation.'
+      ],
+      tech: ['Java', 'Spring Boot', 'REST APIs', 'LLMs', 'Node.js', 'Jest', 'JUnit']
+    },
+    {
+      company: 'National Ports Agency (ANP)',
+      role: 'AI Chatbot Intern (RAG)',
+      dates: 'August 2025',
+      desc: [
+        'Developed a Retrieval-Augmented Generation chatbot.',
+        'Built semantic search pipelines.',
+        'Implemented document indexing using embeddings.'
+      ],
+      tech: ['Python', 'LangChain', 'FAISS', 'HuggingFace', 'Streamlit', 'SQLite']
+    }
+  ];
+
+  return (
+    <section id="experience" ref={ref} className="section-padding" style={{ background: 'var(--espresso)' }}>
+      <SectionHeader label="Career" title="Professional Experience" dark visible={visible} />
+      
+      <div className="experience-timeline" style={{ position: 'relative', paddingLeft: '2rem', borderLeft: '2px solid rgba(121,163,195,0.2)', maxWidth: '1000px', margin: '0 auto' }}>
+        {experiences.map((exp, idx) => (
+          <div key={idx} style={{
+            marginBottom: '4rem', position: 'relative',
+            opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateX(-20px)',
+            transition: `all 0.8s ${idx * 0.15}s`
+          }}>
+            <div className="experience-dot" style={{
+              position: 'absolute', left: '-2.7rem', top: '0', width: '20px', height: '20px',
+              borderRadius: '50%', background: 'var(--chambray)', border: '4px solid var(--espresso)',
+              boxShadow: '0 0 0 4px rgba(121,163,195,0.1)',
+            }} />
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', color: 'var(--chambray)', fontWeight: 600 }}>{exp.dates}</span>
+              <h4 style={{ fontSize: '1.5rem', color: 'var(--white)', margin: 0 }}>{exp.role}</h4>
+              <p style={{ fontSize: '1.1rem', color: 'var(--bisque)', margin: 0, fontWeight: 500 }}>{exp.company}</p>
+              
+              <ul style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.95rem', lineHeight: 1.7, paddingLeft: '1.2rem', margin: '1rem 0' }}>
+                {exp.desc.map((item, i) => (
+                  <li key={i} style={{ marginBottom: '0.5rem' }}>{item}</li>
+                ))}
+              </ul>
+              
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: '0.5rem' }}>
+                {exp.tech.map(t => (
+                  <span key={t} style={{
+                    fontSize: '0.75rem', fontWeight: 600, color: 'var(--espresso)',
+                    padding: '4px 10px', background: 'var(--glacier)', borderRadius: '6px'
+                  }}>{t}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function Projects() {
   const [ref, visible] = useVisible();
   return (
     <section id="projects" ref={ref} className="section-padding" style={{ background: 'var(--glacier)', backgroundOpacity: 0.3 }}>
-      <SectionHeader label="Réalisations" title="Projets" visible={visible} />
+      <SectionHeader label="Portfolio" title="Projects" visible={visible} />
       
       <div className="projects-grid">
         {PROJECTS.map((project, idx) => (
@@ -528,22 +565,10 @@ function Projects() {
           onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'var(--shadow-md)'; }}
           >
             <div className="project-header" style={{ height: '240px', background: project.accent, position: 'relative', overflow: 'hidden' }}>
-              {/* If project has an image, show it; otherwise show abstract background */}
-              {project.image ? (
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top', display: 'block' }}
-                />
-              ) : (
-                <>
-                  <div style={{ position: 'absolute', inset: 0, opacity: 0.2, backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
-                  <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', color: 'white', fontSize: '4rem', fontWeight: 800, opacity: 0.1 }}>
-                    {project.title.charAt(0)}
-                  </div>
-                </>
-              )}
-              {/* Tag badge */}
+              <div style={{ position: 'absolute', inset: 0, opacity: 0.2, backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
+              <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', color: 'white', fontSize: '4rem', fontWeight: 800, opacity: 0.1 }}>
+                {project.title.charAt(0)}
+              </div>
               <div style={{ position: 'absolute', bottom: '20px', left: '24px' }}>
                 <span style={{
                   padding: '6px 12px', background: 'rgba(255,255,255,0.2)', backdropFilter: 'blur(10px)',
@@ -553,7 +578,6 @@ function Projects() {
                   {project.tag}
                 </span>
               </div>
-              {/* GitHub badge – only shown when link exists */}
               {project.link && (
                 <div style={{
                   position: 'absolute', top: '16px', right: '16px',
@@ -581,7 +605,7 @@ function Projects() {
                   }}>{t}</span>
                 ))}
                 {project.link && (
-                  <span style={{ marginLeft: 'auto', fontSize: '0.75rem', color: 'var(--chambray)', fontWeight: 700 }}>Voir le code →</span>
+                  <span style={{ marginLeft: 'auto', fontSize: '0.75rem', color: 'var(--chambray)', fontWeight: 700 }}>View Code →</span>
                 )}
               </div>
             </div>
@@ -592,58 +616,37 @@ function Projects() {
   );
 }
 
-function Experience() {
+function Education() {
   const [ref, visible] = useVisible();
   const experiences = [
-    { year: '2025 – 2026', title: 'Cycle d\'ingénieur (2ème année)', school: 'ENSA SAFI', sub: 'Génie Informatique' },
-    { year: '2024 – 2025', title: 'Cycle d\'ingénieur (1ère année)', school: 'ENSA SAFI', sub: 'Génie Informatique & IA' },
-    { year: '2022 – 2024', title: 'Cycle Préparatoire intégré', school: 'ENSA SAFI', sub: 'Formation fondamentale' },
-    { year: '2021 – 2022', title: 'Baccalauréat Scientifique', school: 'Lycée Awlade Amrane', sub: 'Sciences Physiques' },
+    { year: '2025 – 2026', title: 'Engineering Cycle (2nd Year)', school: 'ENSA SAFI', sub: 'Computer Science' },
+    { year: '2024 – 2025', title: 'Engineering Cycle (1st Year)', school: 'ENSA SAFI', sub: 'Computer Science & AI' },
+    { year: '2022 – 2024', title: 'Integrated Preparatory Classes', school: 'ENSA SAFI', sub: 'Fundamental Sciences' },
+    { year: '2021 – 2022', title: 'Scientific Baccalaureate', school: 'Awlade Amrane High School', sub: 'Physical Sciences' },
   ];
 
   return (
-    <section id="formation" ref={ref} className="section-padding" style={{ background: 'var(--espresso)' }}>
-      <SectionHeader label="Parcours" title="Formation & Expérience" dark visible={visible} />
+    <section id="education" ref={ref} className="section-padding" style={{ background: 'var(--white)' }}>
+      <SectionHeader label="Academic Background" title="Education" visible={visible} />
       
-      <div className="experience-grid">
-        <div className="experience-timeline" style={{ position: 'relative', paddingLeft: '2rem', borderLeft: '2px solid rgba(121,163,195,0.2)' }}>
-           {experiences.map((exp, idx) => (
-            <div key={idx} style={{
-              marginBottom: '3.5rem', position: 'relative',
-              opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateX(-20px)',
-              transition: `all 0.8s ${idx * 0.15}s`
-            }}>
-              <div className="experience-dot" style={{
-                position: 'absolute', left: '-2.7rem', top: '0', width: '20px', height: '20px',
-                borderRadius: '50%', background: 'var(--chambray)', border: '4px solid var(--espresso)',
-                boxShadow: '0 0 0 4px rgba(121,163,195,0.1)',
-              }} />
-              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--chambray)', fontWeight: 600 }}>{exp.year}</span>
-              <h4 style={{ fontSize: '1.4rem', color: 'var(--white)', marginTop: '0.5rem', marginBottom: '0.25rem' }}>{exp.title}</h4>
-              <p style={{ fontSize: '1rem', color: 'var(--bisque)', marginBottom: '0.5rem' }}>{exp.school}</p>
-              <p style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.4)' }}>{exp.sub}</p>
-            </div>
-          ))}
-        </div>
-
-        <div style={{
-          opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateX(20px)',
-          transition: 'all 1s 0.5s'
-        }}>
-          <div className="glass experience-side-card" style={{ padding: '3rem', borderRadius: '24px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)' }}>
-            <h3 style={{ fontSize: '1.8rem', color: 'var(--chambray)', marginBottom: '2rem' }}>Expérience Professionnelle</h3>
-            <div style={{ marginBottom: '2rem' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-                <h4 style={{ fontSize: '1.3rem', color: 'var(--white)' }}>Stage RAG Chatbot</h4>
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--chambray)' }}>Août 2025</span>
-              </div>
-              <p style={{ fontSize: '0.95rem', color: 'var(--bisque)', marginBottom: '1rem' }}>ANP – Agence Nationale des Ports, Casablanca</p>
-              <p style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.6)', lineHeight: 1.7 }}>
-                Développement d'une solution d'intelligence artificielle basée sur le RAG pour l'analyse automatisée de documents portuaires.
-              </p>
-            </div>
+      <div className="experience-timeline" style={{ position: 'relative', paddingLeft: '2rem', borderLeft: '2px solid rgba(121,163,195,0.2)', maxWidth: '1000px', margin: '0 auto' }}>
+         {experiences.map((exp, idx) => (
+          <div key={idx} style={{
+            marginBottom: '3.5rem', position: 'relative',
+            opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateX(-20px)',
+            transition: `all 0.8s ${idx * 0.15}s`
+          }}>
+            <div className="experience-dot" style={{
+              position: 'absolute', left: '-2.7rem', top: '0', width: '20px', height: '20px',
+              borderRadius: '50%', background: 'var(--chambray)', border: '4px solid var(--white)',
+              boxShadow: '0 0 0 4px rgba(121,163,195,0.1)',
+            }} />
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--chambray)', fontWeight: 600 }}>{exp.year}</span>
+            <h4 style={{ fontSize: '1.4rem', color: 'var(--espresso)', marginTop: '0.5rem', marginBottom: '0.25rem' }}>{exp.title}</h4>
+            <p style={{ fontSize: '1rem', color: 'var(--clay)', marginBottom: '0.5rem' }}>{exp.school}</p>
+            <p style={{ fontSize: '0.85rem', color: 'rgba(121,163,195,0.8)' }}>{exp.sub}</p>
           </div>
-        </div>
+        ))}
       </div>
     </section>
   );
@@ -674,7 +677,7 @@ function Certifications() {
       background: 'linear-gradient(to bottom, var(--white), var(--glacier))',
       position: 'relative'
     }}>
-      <SectionHeader label="Reconnaissances" title="Certifications" center visible={visible} />
+      <SectionHeader label="Achievements" title="Certifications" center visible={visible} />
       
       <div style={{
         maxWidth: '1200px', margin: '0 auto',
@@ -720,7 +723,6 @@ function Certifications() {
                 e.currentTarget.style.background = 'rgba(255, 255, 255, 0.7)';
               }}
             >
-              {/* Top Row: Icon + Certified Badge */}
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                 <div style={{
                   width: 60, height: 60, borderRadius: '16px',
@@ -750,7 +752,6 @@ function Certifications() {
                 </div>
               </div>
 
-              {/* Content */}
               <div style={{ flex: 1 }}>
                 <h3 style={{ 
                   fontSize: '1.25rem', color: 'var(--espresso)', 
@@ -768,7 +769,6 @@ function Certifications() {
                 </p>
               </div>
 
-              {/* Footer Action */}
               {cert.link && (
                 <div style={{
                   marginTop: 'auto',
@@ -780,7 +780,7 @@ function Certifications() {
                   fontWeight: 700,
                   transition: 'var(--transition-fast)'
                 }}>
-                  <span>Voir le certificat</span>
+                  <span>View Certificate</span>
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="7" y1="17" x2="17" y2="7"></line>
                     <polyline points="7 7 17 7 17 17"></polyline>
@@ -801,8 +801,8 @@ function Contact() {
   const contacts = [
     { 
       label: 'Email', 
-      val: 'chaymaeelhouma2005@gmail.com', 
-      link: 'mailto:chaymaeelhouma2005@gmail.com', 
+      val: 'chaymaelhouma2005@gmail.com', 
+      link: 'mailto:chaymaelhouma2005@gmail.com', 
       icon: (
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
@@ -843,7 +843,6 @@ function Contact() {
       position: 'relative',
       overflow: 'hidden'
     }}>
-      {/* Decorative background element */}
       <div style={{
         position: 'absolute', bottom: '-10%', right: '-5%', width: '40%', height: '40%',
         background: 'radial-gradient(circle, var(--glacier) 0%, transparent 70%)',
@@ -857,12 +856,11 @@ function Contact() {
             opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateX(-30px)',
             transition: 'all 0.8s ease'
           }}>
-            <SectionHeader label="Contact" title="Prête pour de nouveaux défis" visible={visible} />
+            <SectionHeader label="Contact" title="Ready for New Challenges" visible={visible} />
             <p style={{
               fontSize: '1.2rem', color: 'var(--clay)', lineHeight: 1.7, marginBottom: '2.5rem'
             }}>
-              Je suis actuellement à la recherche d'un <strong>stage technique de 2 mois</strong> (juillet–août 2026). 
-              Passionnée par l'IA et le développement web, je suis prête à relever de nouveaux défis au sein de votre équipe.
+              I am currently seeking a Final-Year Engineering Internship (PFE) where I can contribute to enterprise-scale Java backend development and AI-powered applications while learning from experienced software engineers.
             </p>
           </div>
 
@@ -935,10 +933,10 @@ function Footer() {
           <div style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--white)', marginBottom: '0.5rem' }}>
             C<span style={{ color: 'var(--chambray)' }}>.</span>EH
           </div>
-          <p style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.3)' }}>© 2026 Chayma EL HOUMA. Fait avec passion.</p>
+          <p style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.3)' }}>© 2026 Chayma EL HOUMA. Crafted with passion.</p>
         </div>
         <div className="footer-links">
-          {['Accueil', 'Projets', 'Contact'].map(link => (
+          {['Home', 'Projects', 'Contact'].map(link => (
             <a key={link} href={`#${link.toLowerCase()}`} style={{ fontSize: '0.8rem', color: 'var(--bisque)', fontWeight: 600, transition: 'var(--transition-fast)' }}
             onMouseEnter={e => e.target.style.color = 'var(--chambray)'}
             onMouseLeave={e => e.target.style.color = 'var(--bisque)'}
@@ -954,7 +952,7 @@ export default function App() {
   const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
-    const sections = ['home', 'about', 'skills', 'projects', 'formation', 'certifications', 'contact'];
+    const sections = ['home', 'about', 'skills', 'experience', 'projects', 'education', 'certifications', 'contact'];
     const obs = new IntersectionObserver((entries) => {
       entries.forEach(e => { if (e.isIntersecting) setActiveSection(e.target.id); });
     }, { threshold: 0.3 });
@@ -971,8 +969,9 @@ export default function App() {
       <Hero />
       <About />
       <Skills />
+      <ProfessionalExperience />
       <Projects />
-      <Experience />
+      <Education />
       <Certifications />
       <Contact />
       <Footer />
