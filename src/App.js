@@ -3,81 +3,222 @@ import './index.css';
 
 /* ─── DATA ─── */
 const SKILLS = {
-  'Backend Development': ['Java 17', 'Spring Boot', 'Spring MVC', 'Spring Security', 'Spring Data JPA', 'Hibernate', 'REST APIs', 'Spring Modulith', 'Clean Architecture', 'Microservices'],
-  'Databases': ['PostgreSQL', 'MySQL', 'SQLite'],
-  'AI Engineering': ['Large Language Models (LLMs)', 'Retrieval-Augmented Generation (RAG)', 'LangChain', 'Prompt Engineering', 'FAISS', 'HuggingFace'],
-  'Testing': ['JUnit', 'Mockito', 'Jest', 'Supertest', 'Postman'],
-  'Tools': ['Docker', 'Maven', 'Git', 'GitHub', 'IntelliJ IDEA', 'VS Code'],
+  'Backend Development': [
+    'Java 17', 'Spring Boot', 'Spring MVC', 'Spring Security', 
+    'Spring Data JPA', 'Hibernate', 'REST APIs', 'Spring Modulith', 
+    'Clean Architecture', 'Microservices'
+  ],
+  'Frontend Development': [
+    'React', 'Next.js', 'TypeScript', 'Tailwind CSS'
+  ],
+  'Databases': [
+    'PostgreSQL', 'MySQL', 'SQLite', 'SQL'
+  ],
+  'Testing & Quality': [
+    'JUnit 5', 'Mockito', 'Jest', 'Supertest', 'Postman'
+  ],
+  'AI Engineering': [
+    'Large Language Models (LLMs)', 'Retrieval-Augmented Generation (RAG)', 
+    'LangChain', 'Prompt Engineering', 'FAISS', 'HuggingFace'
+  ],
+  'Tools & DevOps': [
+    'Docker', 'Maven', 'Git', 'GitHub', 'IntelliJ IDEA', 'VS Code'
+  ],
 };
+
+const EXPERIENCES = [
+  {
+    title: 'Backend Java Developer Intern',
+    company: 'Arimayi',
+    location: 'France (Remote)',
+    dates: '09 June 2026 – 07 September 2026',
+    shortSummary: 'Contributed to CyberWatch360, a cybersecurity supervision platform designed to centralize and manage security assets.',
+    overview: 'During my internship at Arimayi, I contributed to the development of CyberWatch360, a cybersecurity supervision platform designed to centralize and manage security assets.',
+    contribution: [
+      'Developed the Asset Management module',
+      'Designed and implemented REST APIs',
+      'Implemented asset creation, update and archiving',
+      'Developed CSV/JSON import functionality',
+      'Implemented import history',
+      'Implemented multicriteria asset search',
+      'Implemented asset dependency management',
+      'Integrated the module with other application modules',
+      'Worked with Spring Data JPA and PostgreSQL',
+      'Contributed to security integration with Spring Security',
+      'Wrote unit tests with JUnit 5 and Mockito',
+      'Tested REST APIs using Postman',
+      'Contributed to the Next.js/TypeScript frontend',
+      'Designed UML diagrams and technical documentation',
+      'Collaborated using Git Flow'
+    ],
+    tech: [
+      'Java 17', 'Spring Boot', 'Spring Security', 'Spring Data JPA', 
+      'Hibernate', 'PostgreSQL', 'REST API', 'JUnit 5', 'Mockito', 
+      'Postman', 'Next.js', 'TypeScript', 'Docker', 'Git'
+    ],
+    isPrivate: true
+  },
+  {
+    title: 'Software Test Automation Intern',
+    company: 'Smart Automation Technologies',
+    location: 'Remote',
+    dates: '09 July 2026 – 09 September 2026',
+    shortSummary: 'Developed a Java/Spring Boot orchestration platform for AI-assisted software test generation and evaluation.',
+    overview: 'During this internship, I developed a Java/Spring Boot orchestration platform for AI-assisted software test generation and evaluation.',
+    contribution: [
+      'Developed the Java/Spring Boot orchestrator',
+      'Integrated Large Language Models',
+      'Implemented prompt engineering',
+      'Built REST APIs',
+      'Developed Java ↔ Node.js integration',
+      'Used ProcessBuilder to execute Node.js processes',
+      'Implemented AST-based source code analysis',
+      'Automated software test generation',
+      'Executed generated tests using Jest and Supertest',
+      'Measured code coverage using nyc/Istanbul',
+      'Evaluated test quality using mutation testing with Stryker',
+      'Developed a React/TypeScript dashboard',
+      'Used JUnit and Mockito for testing'
+    ],
+    tech: [
+      'Java 17', 'Spring Boot', 'WebClient', 'Node.js', 'ProcessBuilder', 
+      'LLMs', 'Prompt Engineering', 'AST', 'Jest', 'Supertest', 
+      'nyc/Istanbul', 'Stryker', 'JUnit 5', 'Mockito', 'React', 'TypeScript'
+    ],
+    isPrivate: true
+  },
+  {
+    title: 'AI Chatbot Intern — RAG',
+    company: 'Agence Nationale des Ports (ANP)',
+    location: 'Casablanca, Morocco',
+    dates: 'August 2025',
+    shortSummary: 'Developed a RAG chatbot allowing users to upload PDF documents and interact with content via semantic search and an LLM.',
+    overview: 'Developed a Retrieval-Augmented Generation chatbot allowing users to upload PDF documents and interact with their content using semantic search and an LLM.',
+    contribution: [
+      'PDF document upload',
+      'Text extraction',
+      'Document chunking',
+      'Embedding generation',
+      'FAISS vector indexing',
+      'Semantic search',
+      'Context retrieval',
+      'LLM response generation',
+      'Chat interface',
+      'SQLite integration'
+    ],
+    tech: [
+      'Python', 'LangChain', 'FAISS', 'HuggingFace Embeddings', 
+      'Streamlit', 'SQLite', 'PyPDF2', 'LLM'
+    ],
+    isPrivate: false
+  }
+];
 
 const PROJECTS = [
   {
+    id: 'carpooling',
     title: 'Carpooling Platform',
-    tag: 'Web · Fullstack',
-    desc: 'Enterprise microservices-based carpooling platform developed with Java and Spring Boot.',
-    tech: ['Java 17', 'Spring Boot', 'Spring Security', 'MySQL', 'Docker', 'Git', 'REST APIs'],
-    accent: 'var(--espresso)',
-    link: 'https://github.com/sofiastron/EcoRide.git',
+    category: 'Web · Full Stack · Microservices',
+    shortDesc: 'Enterprise microservices-based carpooling platform developed with Java and Spring Boot.',
+    overview: 'Enterprise microservices-based carpooling platform developed with Java and Spring Boot.',
+    features: [
+      'User management',
+      'Authentication & JWT security',
+      'Trip creation & scheduling',
+      'Trip search & multi-criteria filtering',
+      'Reservation management',
+      'Secure REST APIs',
+      'Microservices architecture'
+    ],
+    contribution: 'Designed and built the microservices architecture in Java 17 / Spring Boot, integrated Spring Security, established RESTful API communication, persisted user and ride records with MySQL, containerized services with Docker, and implemented frontend UI components in React.',
+    architecture: ['React Client', 'REST API Gateway', 'Spring Boot Microservices', 'MySQL Database', 'Docker Containers'],
+    tech: ['Java 17', 'Spring Boot', 'Spring Security', 'React', 'MySQL', 'Docker', 'Git', 'REST APIs'],
+    githubLink: 'https://github.com/sofiastron/EcoRide.git',
+    accent: 'var(--espresso)'
   },
   {
+    id: 'learning-platform',
     title: 'Interactive Learning Platform',
-    tag: 'Fullstack · AI',
-    desc: 'Interactive educational platform featuring real-time communication and course management.',
+    category: 'Full Stack · Education',
+    shortDesc: 'Interactive educational platform featuring course management, real-time communication, competitions and student progress tracking.',
+    overview: 'Interactive educational platform featuring course management, real-time communication, competitions and student progress tracking.',
+    features: [
+      'Course creation & module management',
+      'Real-time WebSocket communication & notifications',
+      'Interactive student competitions & coding duels',
+      'Student progress tracking & performance dashboards',
+      'Role-based access control & secure endpoints'
+    ],
+    contribution: 'Architected the backend platform using Java 17 and Spring Boot, developed WebSocket handlers for live real-time interaction and competitive duels, managed PostgreSQL database schemas, and built dynamic user dashboards with React.',
+    architecture: ['React Frontend', 'WebSocket / REST Layer', 'Spring Boot Server', 'PostgreSQL Database', 'Docker'],
     tech: ['Java 17', 'Spring Boot', 'React', 'PostgreSQL', 'WebSocket', 'Docker'],
-    accent: 'var(--clay)',
-    link: 'https://github.com/sofiastron/CodeArena.git',
+    githubLink: 'https://github.com/sofiastron/CodeArena.git',
+    accent: 'var(--clay)'
   },
+  {
+    id: 'ai-test-automation',
+    title: 'AI-Assisted Software Test Automation',
+    category: 'Backend · AI · Test Automation',
+    shortDesc: 'Java/Spring Boot platform for AI-assisted software test generation and evaluation.',
+    overview: 'Java/Spring Boot platform for AI-assisted software test generation and evaluation.',
+    features: [
+      'AI-assisted automated test generation',
+      'LLM integration & prompt engineering',
+      'Java ↔ Node.js integration via ProcessBuilder',
+      'AST-based source code analysis',
+      'Automated test execution with Jest & Supertest',
+      'Code coverage analysis with nyc/Istanbul',
+      'Mutation testing with Stryker',
+      'Test quality evaluation metrics',
+      'React & TypeScript interactive dashboard'
+    ],
+    contribution: 'Engineered the core Java/Spring Boot orchestrator, crafted specialized prompts for LLM test generation, built inter-process communication using ProcessBuilder to trigger Node.js analysis modules, integrated coverage and mutation analysis engines, and created the React dashboard.',
+    architecture: ['React/TS Dashboard', 'Spring Boot Orchestrator', 'LLM Prompt Engine', 'AST Parser', 'ProcessBuilder (Node.js)', 'Coverage & Stryker Reports'],
+    tech: ['Java 17', 'Spring Boot', 'Node.js', 'LLMs', 'Jest', 'Supertest', 'nyc/Istanbul', 'Stryker', 'React', 'TypeScript', 'JUnit', 'Mockito'],
+    accent: 'var(--chambray)'
+  },
+  {
+    id: 'rag-chatbot',
+    title: 'Intelligent PDF Chatbot — RAG',
+    category: 'AI · RAG · NLP',
+    shortDesc: 'RAG-based chatbot allowing users to upload PDF documents and ask questions using semantic search and an LLM.',
+    overview: 'RAG-based chatbot allowing users to upload PDF documents and ask questions using semantic search and an LLM.',
+    features: [
+      'PDF document upload & text extraction',
+      'Document text chunking & preprocessing',
+      'HuggingFace text embeddings generation',
+      'FAISS vector index storage',
+      'Semantic search & context retrieval',
+      'LLM answer synthesis',
+      'Streamlit chat interface',
+      'SQLite database integration'
+    ],
+    contribution: 'Built the complete RAG pipeline with Python and LangChain, constructed FAISS vector indexing with HuggingFace Embeddings, engineered semantic retrieval logic, and created an interactive Streamlit UI.',
+    architecture: ['PDF Document', 'Text Extraction', 'Chunking', 'Embeddings', 'FAISS Index', 'Semantic Retrieval', 'LLM', 'Answer'],
+    tech: ['Python', 'LangChain', 'FAISS', 'HuggingFace Embeddings', 'Streamlit', 'SQLite', 'LLM'],
+    accent: '#2D5A4C'
+  }
 ];
 
-const CERTS = [
-  { 
-    name: 'Introduction Python', 
-    issuer: '365 Data Science', 
-    link: 'https://learn.365datascience.com/certificates/CC-D782A4BF37/',
-    logo: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg'
-  },
-  { 
-    name: 'Intermediate Python', 
-    issuer: '365 Data Science', 
-    link: 'https://learn.365datascience.com/certificates/CC-83808A5853/',
-    logo: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg'
-  },
-  { 
-    name: 'JavaScript', 
-    issuer: 'Cisco Networking Academy',
-    logo: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg'
-  },
-  { 
-    name: 'Introduction to java', 
-    issuer: 'DataCamp',
-    link: 'https://www.datacamp.com/completed/statement-of-accomplishment/course/ee779adf5c1e9be79a2a71c4c4f9ce16141f77b2',
-    logo: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg'
-  },
-  { 
-    name: 'Introduction to object oriented programming in java', 
-    issuer: 'DataCamp',
-    link: 'https://www.datacamp.com/completed/statement-of-accomplishment/course/b648a2de22341e5a2404de060f5f1a23c6283b2d',
-    logo: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg'
-  },
-  { 
-    name: 'Java Programming Achievement — Intermediate Level', 
-    issuer: 'DataCamp',
-    link: 'https://www.datacamp.com/completed/statement-of-accomplishment/course/d79c6452e40e0e7b71a6e48201891568d711e6b6',
-    logo: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg'
-  },
-  { 
-    name: 'Introduction to Git', 
-    issuer: 'DataCamp',
-    link: 'https://www.datacamp.com/completed/statement-of-accomplishment/course/bc4540ba3e583dbeae2d58c941cc1d2a3f5979e4',
-    logo: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/git/git-original.svg'
-  },
-  { 
-    name: 'Intermediate Git', 
-    issuer: 'DataCamp',
-    link: 'https://www.datacamp.com/completed/statement-of-accomplishment/course/35e512fcaa8c19610a262d361f198e9605b3f8f4',
-    logo: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/git/git-original.svg'
-  },
-];
+const CERTS_BY_CATEGORY = {
+  'Java': [
+    { name: 'Oracle Java Foundations', issuer: 'Oracle', link: null, logo: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg' },
+    { name: 'Java Programming Achievement — Intermediate Level', issuer: 'DataCamp', link: 'https://www.datacamp.com/completed/statement-of-accomplishment/course/d79c6452e40e0e7b71a6e48201891568d711e6b6', logo: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg' },
+    { name: 'Introduction to Java', issuer: 'DataCamp', link: 'https://www.datacamp.com/completed/statement-of-accomplishment/course/ee779adf5c1e9be79a2a71c4c4f9ce16141f77b2', logo: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg' },
+    { name: 'Introduction to Object-Oriented Programming in Java', issuer: 'DataCamp', link: 'https://www.datacamp.com/completed/statement-of-accomplishment/course/b648a2de22341e5a2404de060f5f1a23c6283b2d', logo: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg' }
+  ],
+  'Git': [
+    { name: 'Introduction to Git', issuer: 'DataCamp', link: 'https://www.datacamp.com/completed/statement-of-accomplishment/course/bc4540ba3e583dbeae2d58c941cc1d2a3f5979e4', logo: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/git/git-original.svg' },
+    { name: 'Intermediate Git', issuer: 'DataCamp', link: 'https://www.datacamp.com/completed/statement-of-accomplishment/course/35e512fcaa8c19610a262d361f198e9605b3f8f4', logo: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/git/git-original.svg' }
+  ],
+  'Python': [
+    { name: 'Introduction Python', issuer: '365 Data Science', link: 'https://learn.365datascience.com/certificates/CC-D782A4BF37/', logo: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg' },
+    { name: 'Intermediate Python', issuer: '365 Data Science', link: 'https://learn.365datascience.com/certificates/CC-83808A5853/', logo: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg' }
+  ],
+  'JavaScript': [
+    { name: 'JavaScript Essentials 1', issuer: 'Cisco Networking Academy', link: null, logo: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg' }
+  ]
+};
 
 /* ─── HOOK: Intersection Observer ─── */
 function useVisible(threshold = 0.15) {
@@ -98,7 +239,7 @@ function useVisible(threshold = 0.15) {
 
 function Nav({ active }) {
   const links = ['Home', 'About', 'Skills', 'Experience', 'Projects', 'Education', 'Certifications', 'Contact'];
-  const ids    = ['home', 'about', 'skills', 'experience', 'projects', 'education', 'certifications', 'contact'];
+  const ids   = ['home', 'about', 'skills', 'experience', 'projects', 'education', 'certifications', 'contact'];
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -122,7 +263,7 @@ function Nav({ active }) {
     letterSpacing: '0.12em',
     textTransform: 'uppercase',
     color: active === id ? 'var(--chambray)' : 'var(--espresso)',
-    opacity: active === id ? 1 : 0.5,
+    opacity: active === id ? 1 : 0.6,
     transition: 'var(--transition-fast)',
     position: 'relative',
   });
@@ -135,7 +276,7 @@ function Nav({ active }) {
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         padding: '0 clamp(16px, 5vw, 8vw)',
         transition: 'var(--transition-smooth)',
-        borderBottom: scrolled || menuOpen ? '1px solid rgba(121, 163, 195, 0.1)' : '1px solid transparent',
+        borderBottom: scrolled || menuOpen ? '1px solid rgba(121, 163, 195, 0.15)' : '1px solid transparent',
         background: scrolled || menuOpen ? 'var(--white-glass)' : 'transparent',
       }}>
         <a href="#home" className="nav-logo" style={{
@@ -160,6 +301,25 @@ function Nav({ active }) {
               )}
             </a>
           ))}
+          <a
+            href="/CV_ELHOUMA_CHAYMA__.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              padding: '8px 16px',
+              background: 'var(--chambray)',
+              color: 'var(--white)',
+              borderRadius: '6px',
+              fontSize: '0.75rem',
+              fontWeight: 700,
+              letterSpacing: '0.08em',
+              textTransform: 'uppercase',
+              boxShadow: 'var(--shadow-sm)',
+              transition: 'var(--transition-fast)'
+            }}
+          >
+            CV
+          </a>
         </div>
 
         <button
@@ -192,6 +352,15 @@ function Nav({ active }) {
             {l}
           </a>
         ))}
+        <a
+          href="/CV_ELHOUMA_CHAYMA__.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ color: 'var(--chambray)', fontWeight: 700 }}
+          onClick={closeMenu}
+        >
+          📄 Download CV
+        </a>
       </div>
     </>
   );
@@ -206,7 +375,6 @@ function Hero() {
       position: 'relative', overflow: 'hidden',
       padding: '100px clamp(16px, 5vw, 8vw) 4rem',
     }}>
-      {/* Decorative Elements */}
       <div className="hero-decor-large" style={{
         position: 'absolute', top: '15%', right: '10%', width: '400px', height: '400px',
         background: 'var(--chambray)', opacity: 0.05, borderRadius: '50%', filter: 'blur(80px)',
@@ -226,8 +394,8 @@ function Hero() {
             marginBottom: '2rem', animation: 'fadeUp 0.6s ease forwards'
           }}>
             <div style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--chambray)', animation: 'pulse-glow 2s infinite' }} />
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', fontWeight: 500, color: 'var(--clay)', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
-              Java 17 • Spring Boot • REST APIs • Generative AI
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', fontWeight: 600, color: 'var(--clay)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+              Java/Spring Boot • React • REST APIs • PostgreSQL
             </span>
           </div>
 
@@ -240,10 +408,10 @@ function Hero() {
           </h1>
 
           <p style={{
-            fontSize: '1.15rem', color: 'var(--clay)', maxWidth: '540px', marginBottom: '3rem',
+            fontSize: '1.1rem', color: 'var(--clay)', maxWidth: '560px', marginBottom: '2.5rem',
             animation: 'fadeUp 0.8s 0.4s ease forwards', opacity: 0, lineHeight: 1.7
           }}>
-            Final-year Computer Science and Artificial Intelligence Engineering student specializing in Java 17, Spring Boot, scalable backend systems, RESTful API development, and AI-powered applications. Passionate about building enterprise software and integrating Generative AI technologies into modern backend systems.
+            Final-year Computer Science and Artificial Intelligence Engineering student specializing in software and web development. Focused on building robust backend systems with <strong>Java 17 & Spring Boot</strong>, modern web interfaces with <strong>React & Next.js</strong>, and incorporating Generative AI solutions.
           </p>
 
           <div className="hero-actions" style={{ animation: 'fadeUp 0.8s 0.6s ease forwards', opacity: 0 }}>
@@ -252,19 +420,19 @@ function Hero() {
               borderRadius: '8px', fontWeight: 700, fontSize: '0.85rem', letterSpacing: '0.05em',
               transition: 'var(--transition-smooth)', boxShadow: 'var(--shadow-md)'
             }}
-            onMouseEnter={e => { e.target.style.transform = 'translateY(-5px)'; e.target.style.boxShadow = 'var(--shadow-lg)'; }}
+            onMouseEnter={e => { e.target.style.transform = 'translateY(-3px)'; e.target.style.boxShadow = 'var(--shadow-lg)'; }}
             onMouseLeave={e => { e.target.style.transform = 'translateY(0)'; e.target.style.boxShadow = 'var(--shadow-md)'; }}
             >
               Explore my projects
             </a>
             
-            <a href="/RESUME-CHAYMA_EL_HOUMA.pdf" target="_blank" className="btn" style={{
+            <a href="/CV_ELHOUMA_CHAYMA__.pdf" target="_blank" rel="noopener noreferrer" className="btn" style={{
               padding: '16px 28px', background: 'var(--chambray)', color: 'var(--white)',
               borderRadius: '8px', fontWeight: 700, fontSize: '0.85rem', letterSpacing: '0.05em',
               transition: 'var(--transition-smooth)', boxShadow: 'var(--shadow-md)',
               display: 'flex', alignItems: 'center', gap: '8px'
             }}
-            onMouseEnter={e => { e.target.style.transform = 'translateY(-5px)'; e.target.style.background = '#608CAE'; }}
+            onMouseEnter={e => { e.target.style.transform = 'translateY(-3px)'; e.target.style.background = '#608CAE'; }}
             onMouseLeave={e => { e.target.style.transform = 'translateY(0)'; e.target.style.background = 'var(--chambray)'; }}
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -273,7 +441,7 @@ function Hero() {
                 <line x1="12" y1="18" x2="12" y2="12"></line>
                 <polyline points="9 15 12 12 15 15"></polyline>
               </svg>
-              View my Resume
+              Download CV
             </a>
 
             <a href="#contact" className="btn" style={{
@@ -289,40 +457,39 @@ function Hero() {
           </div>
         </div>
 
-        <div className="hero-profile" style={{ position: 'relative', animation: 'fadeIn 1.5s 0.5s ease forwards', opacity: 0, marginTop: '90px' }}>
+        <div className="hero-profile" style={{ position: 'relative', animation: 'fadeIn 1.5s 0.5s ease forwards', opacity: 0, marginTop: '70px' }}>
           <div className="glass" style={{
             width: '100%', aspectRatio: '4/5', borderRadius: '24px', overflow: 'hidden',
             display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-            padding: '3rem', textAlign: 'center', border: '1px solid rgba(255,255,255,0.4)',
+            padding: '2.5rem', textAlign: 'center', border: '1px solid rgba(255,255,255,0.4)',
             boxShadow: 'var(--shadow-lg)'
           }}>
              <div style={{
-              width: 120, height: 120, borderRadius: '50%',
+              width: 110, height: 110, borderRadius: '50%',
               background: 'linear-gradient(135deg, var(--chambray), var(--clay))',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontSize: '3rem', fontWeight: 700, color: 'var(--white)',
-              marginBottom: '2rem', border: '4px solid var(--white)',
+              fontSize: '2.8rem', fontWeight: 700, color: 'var(--white)',
+              marginBottom: '1.5rem', border: '4px solid var(--white)',
               boxShadow: '0 10px 20px rgba(121, 163, 195, 0.3)'
             }}>CE</div>
-            <h3 style={{ fontSize: '1.8rem', color: 'var(--espresso)', marginBottom: '0.5rem' }}>Chayma EL HOUMA</h3>
-            <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--chambray)', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '2rem' }}>
-              Backend Java Developer
+            <h3 style={{ fontSize: '1.8rem', color: 'var(--espresso)', marginBottom: '0.25rem' }}>Chayma EL HOUMA</h3>
+            <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--chambray)', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '1.75rem', fontWeight: 600 }}>
+              Software & Web Developer
             </p>
             
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', width: '100%' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.75rem', width: '100%' }}>
               {[
-                { label: 'Projects', val: '5+' },
-                { label: 'Certifs', val: '8' },
-                { label: 'Languages', val: '3' }
+                { label: 'Internships', val: '3' },
+                { label: 'Projects', val: '4+' },
+                { label: 'Certifs', val: '9' }
               ].map(stat => (
-                <div key={stat.label} style={{ padding: '1rem', background: 'var(--espresso-soft)', borderRadius: '12px' }}>
-                  <div style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--espresso)' }}>{stat.val}</div>
-                  <div style={{ fontSize: '0.65rem', color: 'var(--clay)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>{stat.label}</div>
+                <div key={stat.label} style={{ padding: '0.85rem 0.5rem', background: 'var(--espresso-soft)', borderRadius: '12px' }}>
+                  <div style={{ fontSize: '1.4rem', fontWeight: 700, color: 'var(--espresso)' }}>{stat.val}</div>
+                  <div style={{ fontSize: '0.62rem', color: 'var(--clay)', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 600 }}>{stat.label}</div>
                 </div>
               ))}
             </div>
           </div>
-          {/* Decorative floating dots */}
           <div style={{ position: 'absolute', top: -20, right: -20, width: 60, height: 60, background: 'var(--bisque)', borderRadius: '50%', opacity: 0.5, zIndex: -1 }} />
           <div style={{ position: 'absolute', bottom: -10, left: -10, width: 40, height: 40, background: 'var(--glacier)', borderRadius: '50%', opacity: 0.8, zIndex: -1 }} />
         </div>
@@ -364,12 +531,18 @@ function SectionHeader({ label, title, center = false, dark = false, visible }) 
 function About() {
   const [ref, visible] = useVisible();
   
+  const aboutParagraphs = [
+    "I am a final-year Computer Science and Artificial Intelligence engineering student at ENSA Safi, passionate about software and web development.",
+    "My main expertise is Java 17 and Spring Boot, with experience in designing REST APIs, business features, database integration and secure backend applications.",
+    "I also have hands-on experience with React, Next.js and TypeScript for building modern web interfaces and integrating frontend applications with REST APIs.",
+    "Through my internships and projects, I have also worked with software testing, Docker, Git and Generative AI technologies such as LLMs and RAG."
+  ];
+
   return (
     <section id="about" ref={ref} className="section-padding" style={{
       background: `linear-gradient(160deg, var(--espresso) 0%, #5c3527 60%, #3A2119 100%)`,
       position: 'relative', overflow: 'hidden',
     }}>
-      {/* decorative circle */}
       <div style={{
         position: 'absolute', top: '-80px', right: '-80px',
         width: 400, height: 400, borderRadius: '50%',
@@ -377,17 +550,16 @@ function About() {
         pointerEvents: 'none',
       }} />
       <div className="about-grid" style={{ maxWidth: '1100px', margin: '0 auto', gridTemplateColumns: '1fr' }}>
-        {/* Left – label + title */}
-        <div style={{ opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateX(-30px)', transition: 'all 0.9s ease', marginBottom: '3rem' }}>
+        <div style={{ opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateX(-30px)', transition: 'all 0.9s ease', marginBottom: '2.5rem' }}>
           <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', fontWeight: 600, color: 'var(--chambray)', textTransform: 'uppercase', letterSpacing: '0.2em', display: 'block', marginBottom: '1.2rem' }}>
             About
           </span>
-          <h2 style={{ fontSize: 'clamp(2.5rem, 4.5vw, 3.8rem)', fontWeight: 300, color: 'var(--bisque)', lineHeight: 1.1, marginBottom: '2rem' }}>
+          <h2 style={{ fontSize: 'clamp(2.5rem, 4.5vw, 3.8rem)', fontWeight: 300, color: 'var(--bisque)', lineHeight: 1.1, marginBottom: '1.5rem' }}>
             About <em style={{ fontStyle: 'italic', fontWeight: 700, color: 'var(--glacier)' }}>Me</em>
           </h2>
           <div style={{ width: 60, height: 3, background: 'var(--chambray)', borderRadius: 2 }} />
         </div>
-        {/* Right – paragraphs */}
+        
         <div style={{ opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateX(30px)', transition: 'all 0.9s 0.2s ease' }}>
           <div className="about-card" style={{
             background: 'rgba(210,226,236,0.05)',
@@ -395,19 +567,15 @@ function About() {
             borderRadius: '20px', padding: '3rem',
             backdropFilter: 'blur(10px)',
           }}>
-            {[
-              "I am a final-year Computer Science and Artificial Intelligence engineering student passionate about backend software engineering.",
-              "My primary expertise is Java 17 and Spring Boot, where I enjoy designing REST APIs, scalable architectures, and enterprise applications.",
-              "I also have experience integrating Generative AI technologies such as Large Language Models (LLMs) and Retrieval-Augmented Generation (RAG) into backend systems to build intelligent software solutions.",
-            ].map((para, i) => (
+            {aboutParagraphs.map((para, i) => (
               <p key={i} style={{
                 fontFamily: 'var(--font-ui)',
                 fontSize: '1.05rem',
                 lineHeight: 1.85,
-                color: 'rgba(235,205,183,0.75)',
-                marginBottom: i < 2 ? '1.5rem' : 0,
-                paddingLeft: '1rem',
-                borderLeft: i === 0 ? '3px solid var(--chambray)' : '3px solid transparent',
+                color: 'rgba(235,205,183,0.85)',
+                marginBottom: i < aboutParagraphs.length - 1 ? '1.5rem' : 0,
+                paddingLeft: '1.2rem',
+                borderLeft: i === 0 || i === 1 ? '3px solid var(--chambray)' : '3px solid rgba(121, 163, 195, 0.3)',
               }}>{para}</p>
             ))}
           </div>
@@ -424,31 +592,31 @@ function Skills() {
       <SectionHeader label="Expertise" title="Technical Skills" visible={visible} />
       
       <div style={{
-        display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem',
+        display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem',
         opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateY(30px)',
         transition: 'var(--transition-smooth) 0.3s'
       }}>
         {Object.entries(SKILLS).map(([cat, items], idx) => (
           <div key={cat} className="glass" style={{
             padding: '2.5rem', borderRadius: '20px', transition: 'var(--transition-smooth)',
-            border: '1px solid rgba(121,163,195,0.1)'
+            border: '1px solid rgba(121,163,195,0.15)'
           }}
-          onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-10px)'; e.currentTarget.style.boxShadow = 'var(--shadow-lg)'; e.currentTarget.style.borderColor = 'var(--chambray)'; }}
-          onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.borderColor = 'rgba(121,163,195,0.1)'; }}
+          onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-8px)'; e.currentTarget.style.boxShadow = 'var(--shadow-lg)'; e.currentTarget.style.borderColor = 'var(--chambray)'; }}
+          onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.borderColor = 'rgba(121,163,195,0.15)'; }}
           >
             <h3 style={{ fontSize: '1.4rem', color: 'var(--espresso)', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
               <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--chambray)' }} />
               {cat}
             </h3>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem' }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.6rem' }}>
               {items.map(skill => (
                 <span key={skill} style={{
                   padding: '6px 14px', background: 'var(--white)', borderRadius: '6px',
-                  fontSize: '0.8rem', fontWeight: 600, color: 'var(--clay)',
+                  fontSize: '0.82rem', fontWeight: 600, color: 'var(--espresso)',
                   border: '1px solid var(--glacier)', transition: 'var(--transition-fast)'
                 }}
                 onMouseEnter={e => { e.target.style.background = 'var(--glacier)'; e.target.style.color = 'var(--espresso)'; }}
-                onMouseLeave={e => { e.target.style.background = 'var(--white)'; e.target.style.color = 'var(--clay)'; }}
+                onMouseLeave={e => { e.target.style.background = 'var(--white)'; e.target.style.color = 'var(--espresso)'; }}
                 >{skill}</span>
               ))}
             </div>
@@ -459,55 +627,93 @@ function Skills() {
   );
 }
 
+function ExperienceModal({ exp, onClose }) {
+  if (!exp) return null;
+
+  return (
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-content" onClick={e => e.stopPropagation()}>
+        <div className="modal-header">
+          <div>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--chambray)', fontWeight: 700 }}>
+              {exp.dates}
+            </span>
+            <h3 style={{ fontSize: '1.6rem', color: 'var(--espresso)', margin: 0, marginTop: '2px' }}>
+              {exp.title}
+            </h3>
+            <p style={{ fontSize: '1rem', color: 'var(--clay)', margin: 0, fontWeight: 600 }}>
+              {exp.company} — {exp.location}
+            </p>
+          </div>
+          <button type="button" className="modal-close-btn" onClick={onClose} aria-label="Close modal">
+            ✕
+          </button>
+        </div>
+
+        <div className="modal-body">
+          {exp.isPrivate && (
+            <div style={{
+              display: 'inline-flex', alignItems: 'center', gap: '8px',
+              padding: '6px 14px', background: 'rgba(58, 33, 25, 0.06)',
+              borderRadius: '8px', border: '1px solid rgba(58, 33, 25, 0.12)',
+              marginBottom: '1.5rem', fontSize: '0.75rem', fontWeight: 700, color: 'var(--espresso)'
+            }}>
+              <span>🔒 Private Enterprise Project</span>
+              <span style={{ color: 'var(--clay)', fontWeight: 400 }}>• Professional Confidentiality Maintained</span>
+            </div>
+          )}
+
+          <div style={{ marginBottom: '2rem' }}>
+            <h4 style={{ fontSize: '1.2rem', color: 'var(--espresso)', marginBottom: '0.75rem', borderBottom: '2px solid var(--glacier)', paddingBottom: '0.4rem' }}>
+              Overview
+            </h4>
+            <p style={{ fontSize: '1rem', color: 'var(--espresso)', lineHeight: 1.7 }}>
+              {exp.overview}
+            </p>
+          </div>
+
+          <div style={{ marginBottom: '2rem' }}>
+            <h4 style={{ fontSize: '1.2rem', color: 'var(--espresso)', marginBottom: '0.75rem', borderBottom: '2px solid var(--glacier)', paddingBottom: '0.4rem' }}>
+              My Contribution & Responsibilities
+            </h4>
+            <ul style={{ paddingLeft: '1.25rem', color: 'var(--espresso)', fontSize: '0.95rem', lineHeight: 1.8 }}>
+              {exp.contribution.map((item, idx) => (
+                <li key={idx} style={{ marginBottom: '0.4rem' }}>{item}</li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h4 style={{ fontSize: '1.2rem', color: 'var(--espresso)', marginBottom: '0.75rem', borderBottom: '2px solid var(--glacier)', paddingBottom: '0.4rem' }}>
+              Technologies & Tools
+            </h4>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.6rem' }}>
+              {exp.tech.map(t => (
+                <span key={t} style={{
+                  fontSize: '0.8rem', fontWeight: 600, color: 'var(--espresso)',
+                  padding: '6px 12px', background: 'var(--glacier)', borderRadius: '6px'
+                }}>
+                  {t}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function ProfessionalExperience() {
   const [ref, visible] = useVisible();
-  const experiences = [
-    {
-      company: 'Arimayi – France (Remote)',
-      role: 'Backend Java Developer Intern',
-      dates: '09 June 2026 – 07 sptember',
-      desc: [
-        'Developed the complete Asset Management module of the CyberWatch360 cybersecurity platform.',
-        'Built production-ready REST APIs using Java 17 and Spring Boot.',
-        'Implemented Spring Security, Spring Data JPA and PostgreSQL.',
-        'Wrote unit tests with JUnit and Mockito.',
-        'Designed UML diagrams and API documentation.',
-        'Collaborated using Git Flow.'
-      ],
-      tech: ['Java 17', 'Spring Boot', 'Spring Security', 'Spring Data JPA', 'PostgreSQL', 'Docker', 'JUnit', 'Mockito', 'Git']
-    },
-    {
-      company: 'Smart Automation Technologies – Remote',
-      role: 'Software Test Automation Intern',
-      dates: '9 July 2026 – 9 September 2026',
-      desc: [
-        'Developing a Java Spring Boot backend orchestrator integrating Large Language Models.',
-        'Building REST APIs.',
-        'Implementing prompt engineering.',
-        'AST-based source code analysis.',
-        'Automated software test generation and evaluation.'
-      ],
-      tech: ['Java', 'Spring Boot', 'REST APIs', 'LLMs', 'Node.js', 'Jest', 'JUnit']
-    },
-    {
-      company: 'National Ports Agency (ANP)',
-      role: 'AI Chatbot Intern (RAG)',
-      dates: 'August 2025',
-      desc: [
-        'Developed a Retrieval-Augmented Generation chatbot.',
-        'Built semantic search pipelines.',
-        'Implemented document indexing using embeddings.'
-      ],
-      tech: ['Python', 'LangChain', 'FAISS', 'HuggingFace', 'Streamlit', 'SQLite']
-    }
-  ];
+  const [selectedExp, setSelectedExp] = useState(null);
 
   return (
     <section id="experience" ref={ref} className="section-padding" style={{ background: 'var(--espresso)' }}>
       <SectionHeader label="Career" title="Professional Experience" dark visible={visible} />
       
       <div className="experience-timeline" style={{ position: 'relative', paddingLeft: '2rem', borderLeft: '2px solid rgba(121,163,195,0.2)', maxWidth: '1000px', margin: '0 auto' }}>
-        {experiences.map((exp, idx) => (
+        {EXPERIENCES.map((exp, idx) => (
           <div key={idx} style={{
             marginBottom: '4rem', position: 'relative',
             opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateX(-20px)',
@@ -519,17 +725,21 @@ function ProfessionalExperience() {
               boxShadow: '0 0 0 4px rgba(121,163,195,0.1)',
             }} />
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', color: 'var(--chambray)', fontWeight: 600 }}>{exp.dates}</span>
-              <h4 style={{ fontSize: '1.5rem', color: 'var(--white)', margin: 0 }}>{exp.role}</h4>
-              <p style={{ fontSize: '1.1rem', color: 'var(--bisque)', margin: 0, fontWeight: 500 }}>{exp.company}</p>
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', color: 'var(--chambray)', fontWeight: 600 }}>
+                {exp.dates}
+              </span>
+              <h4 style={{ fontSize: '1.5rem', color: 'var(--white)', margin: 0 }}>
+                {exp.title}
+              </h4>
+              <p style={{ fontSize: '1.1rem', color: 'var(--bisque)', margin: 0, fontWeight: 500 }}>
+                {exp.company} — <span style={{ fontSize: '0.95rem', opacity: 0.8 }}>{exp.location}</span>
+              </p>
               
-              <ul style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.95rem', lineHeight: 1.7, paddingLeft: '1.2rem', margin: '1rem 0' }}>
-                {exp.desc.map((item, i) => (
-                  <li key={i} style={{ marginBottom: '0.5rem' }}>{item}</li>
-                ))}
-              </ul>
+              <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '0.95rem', lineHeight: 1.7, margin: '0.75rem 0 1rem' }}>
+                {exp.shortSummary}
+              </p>
               
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: '0.5rem' }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '1.5rem' }}>
                 {exp.tech.map(t => (
                   <span key={t} style={{
                     fontSize: '0.75rem', fontWeight: 600, color: 'var(--espresso)',
@@ -537,16 +747,191 @@ function ProfessionalExperience() {
                   }}>{t}</span>
                 ))}
               </div>
+
+              <div>
+                <button
+                  type="button"
+                  onClick={() => setSelectedExp(exp)}
+                  style={{
+                    padding: '10px 20px',
+                    background: 'transparent',
+                    border: '1.5px solid var(--chambray)',
+                    color: 'var(--glacier)',
+                    borderRadius: '8px',
+                    fontSize: '0.82rem',
+                    fontWeight: 700,
+                    letterSpacing: '0.05em',
+                    cursor: 'pointer',
+                    transition: 'var(--transition-fast)',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px'
+                  }}
+                  onMouseEnter={e => { e.currentTarget.style.background = 'var(--chambray)'; e.currentTarget.style.color = 'var(--white)'; }}
+                  onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'var(--glacier)'; }}
+                >
+                  <span>View Experience</span>
+                  <span>→</span>
+                </button>
+              </div>
             </div>
           </div>
         ))}
       </div>
+
+      <ExperienceModal exp={selectedExp} onClose={() => setSelectedExp(null)} />
     </section>
+  );
+}
+
+function ProjectModal({ project, onClose }) {
+  if (!project) return null;
+
+  return (
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-content" onClick={e => e.stopPropagation()}>
+        <div className="modal-header">
+          <div>
+            <button
+              type="button"
+              onClick={onClose}
+              style={{
+                background: 'none', border: 'none', color: 'var(--chambray)',
+                fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer',
+                display: 'inline-flex', alignItems: 'center', gap: '6px', marginBottom: '0.4rem'
+              }}
+            >
+              ← Back to Projects
+            </button>
+            <h3 style={{ fontSize: '1.75rem', color: 'var(--espresso)', margin: 0 }}>
+              {project.title}
+            </h3>
+            <span style={{
+              fontSize: '0.75rem', fontWeight: 700, color: 'var(--clay)',
+              textTransform: 'uppercase', letterSpacing: '0.1em'
+            }}>
+              {project.category}
+            </span>
+          </div>
+          <button type="button" className="modal-close-btn" onClick={onClose} aria-label="Close modal">
+            ✕
+          </button>
+        </div>
+
+        <div className="modal-body">
+          <div style={{ marginBottom: '2rem' }}>
+            <h4 style={{ fontSize: '1.2rem', color: 'var(--espresso)', marginBottom: '0.5rem', borderBottom: '2px solid var(--glacier)', paddingBottom: '0.4rem' }}>
+              Overview
+            </h4>
+            <p style={{ fontSize: '1rem', color: 'var(--espresso)', lineHeight: 1.7 }}>
+              {project.overview}
+            </p>
+          </div>
+
+          <div style={{ marginBottom: '2rem' }}>
+            <h4 style={{ fontSize: '1.2rem', color: 'var(--espresso)', marginBottom: '0.75rem', borderBottom: '2px solid var(--glacier)', paddingBottom: '0.4rem' }}>
+              Key Features
+            </h4>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.75rem' }}>
+              {project.features.map((feat, idx) => (
+                <div key={idx} style={{
+                  padding: '10px 14px', background: 'var(--espresso-soft)',
+                  borderRadius: '8px', fontSize: '0.88rem', fontWeight: 600, color: 'var(--espresso)',
+                  display: 'flex', alignItems: 'center', gap: '8px'
+                }}>
+                  <span style={{ color: 'var(--chambray)' }}>✓</span>
+                  <span>{feat}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div style={{ marginBottom: '2rem' }}>
+            <h4 style={{ fontSize: '1.2rem', color: 'var(--espresso)', marginBottom: '0.5rem', borderBottom: '2px solid var(--glacier)', paddingBottom: '0.4rem' }}>
+              My Contribution
+            </h4>
+            <p style={{ fontSize: '0.95rem', color: 'var(--espresso)', lineHeight: 1.7 }}>
+              {project.contribution}
+            </p>
+          </div>
+
+          {project.architecture && (
+            <div style={{ marginBottom: '2rem' }}>
+              <h4 style={{ fontSize: '1.2rem', color: 'var(--espresso)', marginBottom: '0.5rem', borderBottom: '2px solid var(--glacier)', paddingBottom: '0.4rem' }}>
+                Architecture & Workflow
+              </h4>
+              <div className="architecture-flow">
+                {project.architecture.map((step, idx) => (
+                  <React.Fragment key={idx}>
+                    <div className="flow-step">{step}</div>
+                    {idx < project.architecture.length - 1 && <div className="flow-arrow">➔</div>}
+                  </React.Fragment>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <div style={{ marginBottom: '2rem' }}>
+            <h4 style={{ fontSize: '1.2rem', color: 'var(--espresso)', marginBottom: '0.75rem', borderBottom: '2px solid var(--glacier)', paddingBottom: '0.4rem' }}>
+              Technologies Used
+            </h4>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.6rem' }}>
+              {project.tech.map(t => (
+                <span key={t} style={{
+                  fontSize: '0.85rem', fontWeight: 600, color: 'var(--chambray)',
+                  padding: '6px 14px', background: 'var(--glacier)', borderRadius: '6px'
+                }}>
+                  {t}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', paddingTop: '1rem', borderTop: '1px solid rgba(121, 163, 195, 0.15)' }}>
+            {project.githubLink && (
+              <a
+                href={project.githubLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  padding: '12px 24px', background: 'var(--espresso)', color: 'var(--white)',
+                  borderRadius: '8px', fontWeight: 700, fontSize: '0.85rem',
+                  display: 'inline-flex', alignItems: 'center', gap: '8px',
+                  textDecoration: 'none'
+                }}
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+                  <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.729.083-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/>
+                </svg>
+                <span>GitHub Repository →</span>
+              </a>
+            )}
+            {project.demoLink && (
+              <a
+                href={project.demoLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  padding: '12px 24px', background: 'var(--chambray)', color: 'var(--white)',
+                  borderRadius: '8px', fontWeight: 700, fontSize: '0.85rem',
+                  display: 'inline-flex', alignItems: 'center', gap: '8px',
+                  textDecoration: 'none'
+                }}
+              >
+                <span>Live Demo →</span>
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
 function Projects() {
   const [ref, visible] = useVisible();
+  const [selectedProj, setSelectedProj] = useState(null);
+
   return (
     <section id="projects" ref={ref} className="section-padding" style={{ background: 'var(--glacier)', backgroundOpacity: 0.3 }}>
       <SectionHeader label="Portfolio" title="Projects" visible={visible} />
@@ -558,60 +943,78 @@ function Projects() {
             boxShadow: 'var(--shadow-md)', transition: 'var(--transition-smooth)',
             opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateY(40px)',
             transitionDelay: `${idx * 0.1}s`, display: 'flex', flexDirection: 'column',
-            cursor: project.link ? 'pointer' : 'default',
           }}
-          onClick={() => { if (project.link) window.open(project.link, '_blank', 'noopener,noreferrer'); }}
-          onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-12px)'; e.currentTarget.style.boxShadow = 'var(--shadow-lg)'; }}
+          onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-10px)'; e.currentTarget.style.boxShadow = 'var(--shadow-lg)'; }}
           onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'var(--shadow-md)'; }}
           >
-            <div className="project-header" style={{ height: '240px', background: project.accent, position: 'relative', overflow: 'hidden' }}>
+            <div className="project-header" style={{ height: '220px', background: project.accent, position: 'relative', overflow: 'hidden' }}>
               <div style={{ position: 'absolute', inset: 0, opacity: 0.2, backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
-              <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', color: 'white', fontSize: '4rem', fontWeight: 800, opacity: 0.1 }}>
+              <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', color: 'white', fontSize: '4rem', fontWeight: 800, opacity: 0.15 }}>
                 {project.title.charAt(0)}
               </div>
-              <div style={{ position: 'absolute', bottom: '20px', left: '24px' }}>
+              
+              <div style={{ position: 'absolute', bottom: '16px', left: '20px', zIndex: 2 }}>
                 <span style={{
-                  padding: '6px 12px', background: 'rgba(255,255,255,0.2)', backdropFilter: 'blur(10px)',
+                  padding: '6px 12px', background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(10px)',
                   borderRadius: '6px', fontSize: '0.65rem', fontWeight: 700, color: 'white',
                   textTransform: 'uppercase', letterSpacing: '0.1em'
                 }}>
-                  {project.tag}
+                  {project.category}
                 </span>
               </div>
-              {project.link && (
-                <div style={{
-                  position: 'absolute', top: '16px', right: '16px',
-                  background: 'rgba(0,0,0,0.35)', backdropFilter: 'blur(8px)',
-                  border: '1px solid rgba(255,255,255,0.25)', borderRadius: '8px',
-                  padding: '6px 12px', display: 'flex', alignItems: 'center', gap: '6px',
-                }}>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="white">
-                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.729.083-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/>
-                  </svg>
-                  <span style={{ fontSize: '0.65rem', fontWeight: 700, color: 'white', letterSpacing: '0.05em' }}>GitHub</span>
-                </div>
-              )}
             </div>
             
             <div className="project-card-inner" style={{ padding: '2.5rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
-              <h3 style={{ fontSize: '1.6rem', color: 'var(--espresso)', marginBottom: '1rem' }}>{project.title}</h3>
-              <p style={{ fontSize: '0.95rem', color: 'var(--clay)', lineHeight: 1.7, marginBottom: '2rem', flex: 1 }}>{project.desc}</p>
+              <h3 style={{ fontSize: '1.6rem', color: 'var(--espresso)', marginBottom: '0.75rem' }}>{project.title}</h3>
+              <p style={{ fontSize: '0.95rem', color: 'var(--clay)', lineHeight: 1.7, marginBottom: '1.75rem', flex: 1 }}>
+                {project.shortDesc}
+              </p>
               
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', alignItems: 'center' }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', alignItems: 'center', marginBottom: '1.5rem' }}>
                 {project.tech.map(t => (
                   <span key={t} style={{
                     fontSize: '0.7rem', fontWeight: 600, color: 'var(--chambray)',
                     padding: '4px 10px', background: 'var(--glacier)', borderRadius: '4px'
                   }}>{t}</span>
                 ))}
-                {project.link && (
-                  <span style={{ marginLeft: 'auto', fontSize: '0.75rem', color: 'var(--chambray)', fontWeight: 700 }}>View Code →</span>
-                )}
+              </div>
+
+              <div>
+                <button
+                  type="button"
+                  onClick={() => setSelectedProj(project)}
+                  style={{
+                    width: '100%',
+                    padding: '12px 20px',
+                    background: 'var(--espresso)',
+                    color: 'var(--white)',
+                    borderRadius: '8px',
+                    fontSize: '0.85rem',
+                    fontWeight: 700,
+                    letterSpacing: '0.05em',
+                    cursor: 'pointer',
+                    transition: 'var(--transition-fast)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '8px'
+                  }}
+                  onMouseEnter={e => { e.currentTarget.style.background = 'var(--chambray)'; }}
+                  onMouseLeave={e => { e.currentTarget.style.background = 'var(--espresso)'; }}
+                >
+                  <span>View Project</span>
+                  <span>→</span>
+                </button>
               </div>
             </div>
           </div>
         ))}
       </div>
+
+      <ProjectModal
+        project={selectedProj}
+        onClose={() => setSelectedProj(null)}
+      />
     </section>
   );
 }
@@ -619,10 +1022,24 @@ function Projects() {
 function Education() {
   const [ref, visible] = useVisible();
   const experiences = [
-    { year: '2025 – 2026', title: 'Engineering Cycle (2nd Year)', school: 'ENSA SAFI', sub: 'Computer Science' },
-    { year: '2024 – 2025', title: 'Engineering Cycle (1st Year)', school: 'ENSA SAFI', sub: 'Computer Science & AI' },
-    { year: '2022 – 2024', title: 'Integrated Preparatory Classes', school: 'ENSA SAFI', sub: 'Fundamental Sciences' },
-    { year: '2021 – 2022', title: 'Scientific Baccalaureate', school: 'Awlade Amrane High School', sub: 'Physical Sciences' },
+    {
+      year: '2024 – Present',
+      title: 'Engineering Cycle — Computer Science & Artificial Intelligence',
+      school: 'ENSA Safi',
+      sub: 'Final-year engineering student'
+    },
+    {
+      year: '2022 – 2024',
+      title: 'Integrated Preparatory Classes',
+      school: 'ENSA Safi',
+      sub: 'Fundamental Sciences'
+    },
+    {
+      year: '2021 – 2022',
+      title: 'Scientific Baccalaureate',
+      school: 'Awlade Amrane High School',
+      sub: 'Physical Sciences — Mention Très Bien'
+    },
   ];
 
   return (
@@ -643,8 +1060,8 @@ function Education() {
             }} />
             <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--chambray)', fontWeight: 600 }}>{exp.year}</span>
             <h4 style={{ fontSize: '1.4rem', color: 'var(--espresso)', marginTop: '0.5rem', marginBottom: '0.25rem' }}>{exp.title}</h4>
-            <p style={{ fontSize: '1rem', color: 'var(--clay)', marginBottom: '0.5rem' }}>{exp.school}</p>
-            <p style={{ fontSize: '0.85rem', color: 'rgba(121,163,195,0.8)' }}>{exp.sub}</p>
+            <p style={{ fontSize: '1rem', color: 'var(--clay)', marginBottom: '0.5rem', fontWeight: 600 }}>{exp.school}</p>
+            <p style={{ fontSize: '0.88rem', color: 'rgba(58, 33, 25, 0.7)' }}>{exp.sub}</p>
           </div>
         ))}
       </div>
@@ -654,23 +1071,6 @@ function Education() {
 
 function Certifications() {
   const [ref, visible] = useVisible();
-  
-  const techConfig = {
-    'Python': { color: '#3776AB', bg: 'rgba(55, 118, 171, 0.08)' },
-    'Java': { color: '#007396', bg: 'rgba(0, 115, 150, 0.08)' },
-    'JavaScript': { color: '#F7DF1E', bg: 'rgba(247, 223, 30, 0.08)' },
-    'Git': { color: '#F05032', bg: 'rgba(240, 80, 50, 0.08)' },
-    'default': { color: 'var(--chambray)', bg: 'rgba(121, 163, 195, 0.08)' }
-  };
-
-  const getConfig = (name) => {
-    const n = name.toLowerCase();
-    if (n.includes('python')) return techConfig['Python'];
-    if (n.includes('java')) return techConfig['Java'];
-    if (n.includes('javascript')) return techConfig['JavaScript'];
-    if (n.includes('git')) return techConfig['Git'];
-    return techConfig['default'];
-  };
 
   return (
     <section id="certifications" ref={ref} className="section-padding" style={{ 
@@ -679,117 +1079,114 @@ function Certifications() {
     }}>
       <SectionHeader label="Achievements" title="Certifications" center visible={visible} />
       
-      <div style={{
-        maxWidth: '1200px', margin: '0 auto',
-        display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2.5rem',
-        opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateY(40px)',
-        transition: 'all 1s cubic-bezier(0.2, 0.8, 0.2, 1)'
-      }}>
-        {CERTS.map((cert, i) => {
-          const config = getConfig(cert.name);
-          return (
-            <div 
-              key={cert.name + i} 
-              onClick={() => { if (cert.link) window.open(cert.link, '_blank', 'noopener,noreferrer'); }}
-              className="cert-card"
-              style={{
-                background: 'rgba(255, 255, 255, 0.7)',
-                backdropFilter: 'blur(10px)',
-                borderRadius: '24px',
-                padding: '2.5rem',
-                textAlign: 'left',
-                border: '1px solid rgba(255, 255, 255, 0.5)',
-                transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-                opacity: visible ? 1 : 0,
-                transform: visible ? 'none' : 'translateY(20px)',
-                transitionDelay: `${i * 0.08}s`,
-                cursor: cert.link ? 'pointer' : 'default',
-                position: 'relative',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '1.2rem',
-                boxShadow: '0 4px 20px rgba(0,0,0,0.03)'
-              }}
-              onMouseEnter={e => { 
-                e.currentTarget.style.transform = 'translateY(-10px) scale(1.02)'; 
-                e.currentTarget.style.boxShadow = '0 20px 40px rgba(58, 33, 25, 0.08)'; 
-                e.currentTarget.style.borderColor = config.color;
-                e.currentTarget.style.background = 'var(--white)';
-              }}
-              onMouseLeave={e => { 
-                e.currentTarget.style.transform = 'translateY(0) scale(1)'; 
-                e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.03)'; 
-                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.5)';
-                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.7)';
-              }}
-            >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                <div style={{
-                  width: 60, height: 60, borderRadius: '16px',
-                  background: config.bg, display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  padding: '12px', transition: 'var(--transition-smooth)'
-                }}>
-                  {cert.logo ? (
-                    <img src={cert.logo} alt={cert.name} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
-                  ) : (
-                    <span style={{ fontSize: '1.8rem' }}>📜</span>
+      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+        {Object.entries(CERTS_BY_CATEGORY).map(([category, certList], catIdx) => (
+          <div key={category} style={{ marginBottom: '3.5rem' }}>
+            <h3 className="cert-group-title">
+              <span style={{ color: 'var(--chambray)' }}>//</span> {category}
+            </h3>
+            
+            <div style={{
+              display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem',
+              opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateY(30px)',
+              transition: `all 0.8s ${catIdx * 0.1}s`
+            }}>
+              {certList.map((cert, i) => (
+                <div 
+                  key={cert.name + i} 
+                  onClick={() => { if (cert.link) window.open(cert.link, '_blank', 'noopener,noreferrer'); }}
+                  className="cert-card"
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.8)',
+                    backdropFilter: 'blur(10px)',
+                    borderRadius: '20px',
+                    padding: '2rem',
+                    textAlign: 'left',
+                    border: '1px solid rgba(121, 163, 195, 0.2)',
+                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                    cursor: cert.link ? 'pointer' : 'default',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '1rem',
+                    boxShadow: '0 4px 20px rgba(0,0,0,0.03)'
+                  }}
+                  onMouseEnter={e => { 
+                    e.currentTarget.style.transform = 'translateY(-6px)'; 
+                    e.currentTarget.style.boxShadow = '0 15px 30px rgba(58, 33, 25, 0.08)'; 
+                    e.currentTarget.style.borderColor = 'var(--chambray)';
+                    e.currentTarget.style.background = 'var(--white)';
+                  }}
+                  onMouseLeave={e => { 
+                    e.currentTarget.style.transform = 'translateY(0)'; 
+                    e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.03)'; 
+                    e.currentTarget.style.borderColor = 'rgba(121, 163, 195, 0.2)';
+                    e.currentTarget.style.background = 'rgba(255, 255, 255, 0.8)';
+                  }}
+                >
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div style={{
+                      width: 50, height: 50, borderRadius: '12px',
+                      background: 'rgba(121, 163, 195, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      padding: '10px'
+                    }}>
+                      <img src={cert.logo} alt={cert.name} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                    </div>
+                    
+                    {cert.link && (
+                      <div style={{
+                        padding: '4px 10px',
+                        background: 'rgba(121, 163, 195, 0.12)',
+                        borderRadius: '100px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '6px'
+                      }}>
+                        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.6rem', color: 'var(--chambray)', fontWeight: 700, textTransform: 'uppercase' }}>
+                          Verify
+                        </span>
+                      </div>
+                    )}
+                  </div>
+
+                  <div style={{ flex: 1 }}>
+                    <h4 style={{ 
+                      fontSize: '1.15rem', color: 'var(--espresso)', 
+                      marginBottom: '0.4rem', fontWeight: 600, lineHeight: 1.3,
+                      fontFamily: 'var(--font-ui)'
+                    }}>
+                      {cert.name}
+                    </h4>
+                    <p style={{ 
+                      fontFamily: 'var(--font-mono)', fontSize: '0.72rem', 
+                      color: 'var(--clay)', textTransform: 'uppercase', 
+                      letterSpacing: '0.08em', fontWeight: 600
+                    }}>
+                      {cert.issuer}
+                    </p>
+                  </div>
+
+                  {cert.link && (
+                    <div style={{
+                      marginTop: 'auto',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      color: 'var(--chambray)',
+                      fontSize: '0.8rem',
+                      fontWeight: 700,
+                    }}>
+                      <span>View Certificate</span>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <line x1="7" y1="17" x2="17" y2="7"></line>
+                        <polyline points="7 7 17 7 17 17"></polyline>
+                      </svg>
+                    </div>
                   )}
                 </div>
-                
-                <div style={{
-                  padding: '6px 12px',
-                  background: 'rgba(255, 255, 255, 0.8)',
-                  borderRadius: '100px',
-                  border: '1px solid rgba(0,0,0,0.05)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '6px'
-                }}>
-                  <div style={{ width: 6, height: 6, borderRadius: '50%', background: config.color }} />
-                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.6rem', color: 'var(--clay)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                    Verify
-                  </span>
-                </div>
-              </div>
-
-              <div style={{ flex: 1 }}>
-                <h3 style={{ 
-                  fontSize: '1.25rem', color: 'var(--espresso)', 
-                  marginBottom: '0.5rem', fontWeight: 600, lineHeight: 1.3,
-                  fontFamily: 'var(--font-ui)'
-                }}>
-                  {cert.name}
-                </h3>
-                <p style={{ 
-                  fontFamily: 'var(--font-mono)', fontSize: '0.7rem', 
-                  color: 'var(--chambray)', textTransform: 'uppercase', 
-                  letterSpacing: '0.1em', fontWeight: 600
-                }}>
-                  {cert.issuer}
-                </p>
-              </div>
-
-              {cert.link && (
-                <div style={{
-                  marginTop: 'auto',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  color: config.color,
-                  fontSize: '0.85rem',
-                  fontWeight: 700,
-                  transition: 'var(--transition-fast)'
-                }}>
-                  <span>View Certificate</span>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <line x1="7" y1="17" x2="17" y2="7"></line>
-                    <polyline points="7 7 17 7 17 17"></polyline>
-                  </svg>
-                </div>
-              )}
+              ))}
             </div>
-          );
-        })}
+          </div>
+        ))}
       </div>
     </section>
   );
@@ -858,9 +1255,9 @@ function Contact() {
           }}>
             <SectionHeader label="Contact" title="Ready for New Challenges" visible={visible} />
             <p style={{
-              fontSize: '1.2rem', color: 'var(--clay)', lineHeight: 1.7, marginBottom: '2.5rem'
+              fontSize: '1.15rem', color: 'var(--clay)', lineHeight: 1.7, marginBottom: '2.5rem'
             }}>
-              I am currently seeking a Final-Year Engineering Internship (PFE) where I can contribute to enterprise-scale Java backend development and AI-powered applications while learning from experienced software engineers.
+              I am currently seeking a Final-Year Engineering Internship (PFE) starting in February 2027, where I can contribute to real-world software and web development projects while continuing to grow my technical skills.
             </p>
           </div>
 
@@ -869,22 +1266,16 @@ function Contact() {
             opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateX(30px)',
             transition: 'all 0.8s 0.2s ease'
           }}>
-            {contacts.map((item, idx) => (
+            {contacts.map((item) => (
               <a 
                 key={item.label} 
                 href={item.link} 
                 target={item.link.startsWith('mailto:') ? undefined : '_blank'} 
                 rel={item.link.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
-                onClick={(e) => {
-                  if (item.link.startsWith('mailto:')) {
-                    e.preventDefault();
-                    window.location.href = item.link;
-                  }
-                }}
                 className="contact-card"
                 style={{ textDecoration: 'none' }}
                 onMouseEnter={e => { 
-                  e.currentTarget.style.transform = 'translateX(15px)'; 
+                  e.currentTarget.style.transform = 'translateX(10px)'; 
                   e.currentTarget.style.boxShadow = 'var(--shadow-lg)';
                   e.currentTarget.style.borderColor = item.color;
                 }}
@@ -933,10 +1324,10 @@ function Footer() {
           <div style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--white)', marginBottom: '0.5rem' }}>
             C<span style={{ color: 'var(--chambray)' }}>.</span>EH
           </div>
-          <p style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.3)' }}>© 2026 Chayma EL HOUMA. Crafted with passion.</p>
+          <p style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.4)' }}>© 2026 Chayma EL HOUMA. All rights reserved.</p>
         </div>
         <div className="footer-links">
-          {['Home', 'Projects', 'Contact'].map(link => (
+          {['Home', 'About', 'Skills', 'Experience', 'Projects', 'Contact'].map(link => (
             <a key={link} href={`#${link.toLowerCase()}`} style={{ fontSize: '0.8rem', color: 'var(--bisque)', fontWeight: 600, transition: 'var(--transition-fast)' }}
             onMouseEnter={e => e.target.style.color = 'var(--chambray)'}
             onMouseLeave={e => e.target.style.color = 'var(--bisque)'}
@@ -955,7 +1346,7 @@ export default function App() {
     const sections = ['home', 'about', 'skills', 'experience', 'projects', 'education', 'certifications', 'contact'];
     const obs = new IntersectionObserver((entries) => {
       entries.forEach(e => { if (e.isIntersecting) setActiveSection(e.target.id); });
-    }, { threshold: 0.3 });
+    }, { threshold: 0.25 });
     sections.forEach(id => {
       const el = document.getElementById(id);
       if (el) obs.observe(el);
