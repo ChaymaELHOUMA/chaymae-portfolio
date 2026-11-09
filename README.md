@@ -1,7 +1,7 @@
-# 💼 Portfolio Personnel — Chayma EL HOUMA
+# Portfolio Personnel — Chayma EL HOUMA
 
 > **Développeuse Full Stack Java & React | Élève-Ingénieure en Génie Informatique & Intelligence Artificielle (ENSA Safi)**  
-> 🎯 En recherche active d'un **Stage de Fin d’Études (PFE)** de 6 mois à partir de **février 2027**.
+> En recherche active d'un **Stage de Fin d’Études (PFE)** de 6 mois à partir de **février 2027**.
 
 [![Déploiement Vercel](https://img.shields.io/badge/Vercel-Déployé-black?style=for-the-badge&logo=vercel)](https://chaymae-portfolio.vercel.app/)
 [![React](https://img.shields.io/badge/React-18.2.0-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
@@ -9,25 +9,25 @@
 [![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.x-6DB33F?style=for-the-badge&logo=springboot&logoColor=white)](https://spring.io/projects/spring-boot)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Chayma_EL_HOUMA-0077B5?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/chaymaelhouma)
 
-🌐 **Site en direct :** [chaymae-portfolio.vercel.app](https://chaymae-portfolio.vercel.app/)
+**Site en direct :** [chaymae-portfolio.vercel.app](https://chaymae-portfolio.vercel.app/)
 
 ---
 
-## 📖 Sommaire
+## Sommaire
 
-- [Aperçu du Projet](#-aperçu-du-projet)
-- [Fonctionnalités Clés](#-fonctionnalités-clés)
-- [Stack Technique](#-stack-technique)
-- [Charte Graphique & Palette](#-charte-graphique--palette)
-- [Structure du Projet](#-structure-du-projet)
-- [Installation & Démarrage Local](#-installation--démarrage-local)
-- [Déploiement sur Vercel](#-déploiement-sur-vercel)
-- [Accessibilité & Performances](#-accessibilité--performances)
-- [Contact](#-contact)
+- [Aperçu du Projet](#aperçu-du-projet)
+- [Fonctionnalités Clés](#fonctionnalités-clés)
+- [Stack Technique](#stack-technique)
+- [Charte Graphique & Palette](#charte-graphique--palette)
+- [Structure du Projet](#structure-du-projet)
+- [Installation & Démarrage Local](#installation--démarrage-local)
+- [Déploiement sur Vercel](#déploiement-sur-vercel)
+- [Accessibilité & Performances](#accessibilité--performances)
+- [Contact](#contact)
 
 ---
 
-## 🌟 Aperçu du Projet
+## Aperçu du Projet
 
 Ce portfolio personnel présente le profil, les compétences, le parcours académique et professionnel, ainsi que les réalisations techniques de **Chayma EL HOUMA**.
 
@@ -38,7 +38,7 @@ Conçu selon les standards modernes du développement front-end et du design UI/
 
 ---
 
-## 🚀 Fonctionnalités Clés
+## Fonctionnalités Clés
 
 ### 1. En-tête & Hero Section
 - **Présentation à fort impact** en 2 colonnes avec badge clignotant : `Recherche un stage PFE · février 2027`.
@@ -80,7 +80,7 @@ Organisation claire en 5 domaines d'expertise avec mise en valeur des technologi
 
 ---
 
-## 🛠️ Stack Technique
+## Stack Technique
 
 | Domaine | Technologies |
 | :--- | :--- |
@@ -93,7 +93,7 @@ Organisation claire en 5 domaines d'expertise avec mise en valeur des technologi
 
 ---
 
-## 🎨 Charte Graphique & Palette
+## Charte Graphique & Palette
 
 La palette de couleurs est strictement préservée et organisée via des variables CSS :
 
@@ -109,7 +109,7 @@ La palette de couleurs est strictement préservée et organisée via des variabl
 
 ---
 
-## 📁 Structure du Projet
+## Structure du Projet
 
 ```text
 portfolio/
@@ -133,7 +133,7 @@ portfolio/
 
 ---
 
-## 💻 Installation & Démarrage Local
+## Installation & Démarrage Local
 
 ### Prérequis
 - [Node.js](https://nodejs.org/) (version 16.x ou supérieure recommandée)
@@ -164,7 +164,7 @@ Le dossier optimisé et minifié sera généré dans `/build`.
 
 ---
 
-## ☁️ Déploiement sur Vercel
+## Déploiement sur Vercel
 
 Le projet est configuré pour se déployer automatiquement à chaque push sur la branche principale :
 
@@ -182,7 +182,7 @@ vercel --prod
 
 ---
 
-## ♿ Accessibilité & Performances
+## Accessibilité & Performances
 
 - **Balises HTML5 Sémantiques** : utilisation rigoureuse de `<header>`, `<nav>`, `<main>`, `<section>`, `<article>`, `<dialog>`/`role="dialog"` et `<footer>`.
 - **Navigation au clavier** : tous les éléments interactifs possèdent un état `:focus-visible` net et accessible. Fermeture des fenêtres modales par la touche `Échap`.
@@ -191,7 +191,7 @@ vercel --prod
 
 ---
 
-## 📬 Contact
+## Contact
 
 Pour toute opportunité de stage PFE ou échange technique :
 
