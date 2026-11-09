@@ -1,582 +1,349 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './index.css';
+import {
+  PERSONAL_INFO,
+  ABOUT_TEXTS,
+  SKILL_CATEGORIES,
+  TIMELINE_ITEMS,
+  PROJECTS_DATA,
+  CERTIFICATIONS_DATA,
+} from './data/portfolioData';
 
-/* ─── DATA ─── */
-const SKILLS = {
-  'Backend Development': [
-    'Java 17', 'Spring Boot', 'Spring MVC', 'Spring Security', 
-    'Spring Data JPA', 'Hibernate', 'REST APIs', 'Spring Modulith', 
-    'Clean Architecture', 'Microservices'
-  ],
-  'Frontend Development': [
-    'React', 'Next.js', 'TypeScript', 'Tailwind CSS'
-  ],
-  'Databases': [
-    'PostgreSQL', 'MySQL', 'SQLite', 'SQL'
-  ],
-  'Testing & Quality': [
-    'JUnit 5', 'Mockito', 'Jest', 'Supertest', 'Postman'
-  ],
-  'AI Engineering': [
-    'Large Language Models (LLMs)', 'Retrieval-Augmented Generation (RAG)', 
-    'LangChain', 'Prompt Engineering', 'FAISS', 'HuggingFace'
-  ],
-  'Tools & DevOps': [
-    'Docker', 'Maven', 'Git', 'GitHub', 'IntelliJ IDEA', 'VS Code'
-  ],
-};
-
-const EXPERIENCES = [
-  {
-    title: 'Backend Java Developer Intern',
-    company: 'Arimayi',
-    location: 'France (Remote)',
-    dates: '09 June 2026 – 07 September 2026',
-    shortSummary: 'Contributed to CyberWatch360, a cybersecurity supervision platform designed to centralize and manage security assets.',
-    overview: 'During my internship at Arimayi, I contributed to the development of CyberWatch360, a cybersecurity supervision platform designed to centralize and manage security assets.',
-    contribution: [
-      'Developed the Asset Management module',
-      'Designed and implemented REST APIs',
-      'Implemented asset creation, update and archiving',
-      'Developed CSV/JSON import functionality',
-      'Implemented import history',
-      'Implemented multicriteria asset search',
-      'Implemented asset dependency management',
-      'Integrated the module with other application modules',
-      'Worked with Spring Data JPA and PostgreSQL',
-      'Contributed to security integration with Spring Security',
-      'Wrote unit tests with JUnit 5 and Mockito',
-      'Tested REST APIs using Postman',
-      'Contributed to the Next.js/TypeScript frontend',
-      'Designed UML diagrams and technical documentation',
-      'Collaborated using Git Flow'
-    ],
-    tech: [
-      'Java 17', 'Spring Boot', 'Spring Security', 'Spring Data JPA', 
-      'Hibernate', 'PostgreSQL', 'REST API', 'JUnit 5', 'Mockito', 
-      'Postman', 'Next.js', 'TypeScript', 'Docker', 'Git'
-    ],
-    isPrivate: true
-  },
-  {
-    title: 'Software Test Automation Intern',
-    company: 'Smart Automation Technologies',
-    location: 'Remote',
-    dates: '09 July 2026 – 09 September 2026',
-    shortSummary: 'Developed a Java/Spring Boot orchestration platform for AI-assisted software test generation and evaluation.',
-    overview: 'During this internship, I developed a Java/Spring Boot orchestration platform for AI-assisted software test generation and evaluation.',
-    contribution: [
-      'Developed the Java/Spring Boot orchestrator',
-      'Integrated Large Language Models',
-      'Implemented prompt engineering',
-      'Built REST APIs',
-      'Developed Java ↔ Node.js integration',
-      'Used ProcessBuilder to execute Node.js processes',
-      'Implemented AST-based source code analysis',
-      'Automated software test generation',
-      'Executed generated tests using Jest and Supertest',
-      'Measured code coverage using nyc/Istanbul',
-      'Evaluated test quality using mutation testing with Stryker',
-      'Developed a React/TypeScript dashboard',
-      'Used JUnit and Mockito for testing'
-    ],
-    tech: [
-      'Java 17', 'Spring Boot', 'WebClient', 'Node.js', 'ProcessBuilder', 
-      'LLMs', 'Prompt Engineering', 'AST', 'Jest', 'Supertest', 
-      'nyc/Istanbul', 'Stryker', 'JUnit 5', 'Mockito', 'React', 'TypeScript'
-    ],
-    isPrivate: true
-  },
-  {
-    title: 'AI Chatbot Intern — RAG',
-    company: 'Agence Nationale des Ports (ANP)',
-    location: 'Casablanca, Morocco',
-    dates: 'August 2025',
-    shortSummary: 'Developed a RAG chatbot allowing users to upload PDF documents and interact with content via semantic search and an LLM.',
-    overview: 'Developed a Retrieval-Augmented Generation chatbot allowing users to upload PDF documents and interact with their content using semantic search and an LLM.',
-    contribution: [
-      'PDF document upload',
-      'Text extraction',
-      'Document chunking',
-      'Embedding generation',
-      'FAISS vector indexing',
-      'Semantic search',
-      'Context retrieval',
-      'LLM response generation',
-      'Chat interface',
-      'SQLite integration'
-    ],
-    tech: [
-      'Python', 'LangChain', 'FAISS', 'HuggingFace Embeddings', 
-      'Streamlit', 'SQLite', 'PyPDF2', 'LLM'
-    ],
-    isPrivate: false
-  }
-];
-
-const PROJECTS = [
-  {
-    id: 'carpooling',
-    title: 'Carpooling Platform',
-    category: 'Web · Full Stack · Microservices',
-    shortDesc: 'Enterprise microservices-based carpooling platform developed with Java and Spring Boot.',
-    overview: 'Enterprise microservices-based carpooling platform developed with Java and Spring Boot.',
-    features: [
-      'User management',
-      'Authentication & JWT security',
-      'Trip creation & scheduling',
-      'Trip search & multi-criteria filtering',
-      'Reservation management',
-      'Secure REST APIs',
-      'Microservices architecture'
-    ],
-    contribution: 'Designed and built the microservices architecture in Java 17 / Spring Boot, integrated Spring Security, established RESTful API communication, persisted user and ride records with MySQL, containerized services with Docker, and implemented frontend UI components in React.',
-    architecture: ['React Client', 'REST API Gateway', 'Spring Boot Microservices', 'MySQL Database', 'Docker Containers'],
-    tech: ['Java 17', 'Spring Boot', 'Spring Security', 'React', 'MySQL', 'Docker', 'Git', 'REST APIs'],
-    githubLink: 'https://github.com/sofiastron/EcoRide.git',
-    accent: 'var(--espresso)'
-  },
-  {
-    id: 'learning-platform',
-    title: 'Interactive Learning Platform',
-    category: 'Full Stack · Education',
-    shortDesc: 'Interactive educational platform featuring course management, real-time communication, competitions and student progress tracking.',
-    overview: 'Interactive educational platform featuring course management, real-time communication, competitions and student progress tracking.',
-    features: [
-      'Course creation & module management',
-      'Real-time WebSocket communication & notifications',
-      'Interactive student competitions & coding duels',
-      'Student progress tracking & performance dashboards',
-      'Role-based access control & secure endpoints'
-    ],
-    contribution: 'Architected the backend platform using Java 17 and Spring Boot, developed WebSocket handlers for live real-time interaction and competitive duels, managed PostgreSQL database schemas, and built dynamic user dashboards with React.',
-    architecture: ['React Frontend', 'WebSocket / REST Layer', 'Spring Boot Server', 'PostgreSQL Database', 'Docker'],
-    tech: ['Java 17', 'Spring Boot', 'React', 'PostgreSQL', 'WebSocket', 'Docker'],
-    githubLink: 'https://github.com/sofiastron/CodeArena.git',
-    accent: 'var(--clay)'
-  },
-  {
-    id: 'ai-test-automation',
-    title: 'AI-Assisted Software Test Automation',
-    category: 'Backend · AI · Test Automation',
-    shortDesc: 'Java/Spring Boot platform for AI-assisted software test generation and evaluation.',
-    overview: 'Java/Spring Boot platform for AI-assisted software test generation and evaluation.',
-    features: [
-      'AI-assisted automated test generation',
-      'LLM integration & prompt engineering',
-      'Java ↔ Node.js integration via ProcessBuilder',
-      'AST-based source code analysis',
-      'Automated test execution with Jest & Supertest',
-      'Code coverage analysis with nyc/Istanbul',
-      'Mutation testing with Stryker',
-      'Test quality evaluation metrics',
-      'React & TypeScript interactive dashboard'
-    ],
-    contribution: 'Engineered the core Java/Spring Boot orchestrator, crafted specialized prompts for LLM test generation, built inter-process communication using ProcessBuilder to trigger Node.js analysis modules, integrated coverage and mutation analysis engines, and created the React dashboard.',
-    architecture: ['React/TS Dashboard', 'Spring Boot Orchestrator', 'LLM Prompt Engine', 'AST Parser', 'ProcessBuilder (Node.js)', 'Coverage & Stryker Reports'],
-    tech: ['Java 17', 'Spring Boot', 'Node.js', 'LLMs', 'Jest', 'Supertest', 'nyc/Istanbul', 'Stryker', 'React', 'TypeScript', 'JUnit', 'Mockito'],
-    accent: 'var(--chambray)'
-  },
-  {
-    id: 'rag-chatbot',
-    title: 'Intelligent PDF Chatbot — RAG',
-    category: 'AI · RAG · NLP',
-    shortDesc: 'RAG-based chatbot allowing users to upload PDF documents and ask questions using semantic search and an LLM.',
-    overview: 'RAG-based chatbot allowing users to upload PDF documents and ask questions using semantic search and an LLM.',
-    features: [
-      'PDF document upload & text extraction',
-      'Document text chunking & preprocessing',
-      'HuggingFace text embeddings generation',
-      'FAISS vector index storage',
-      'Semantic search & context retrieval',
-      'LLM answer synthesis',
-      'Streamlit chat interface',
-      'SQLite database integration'
-    ],
-    contribution: 'Built the complete RAG pipeline with Python and LangChain, constructed FAISS vector indexing with HuggingFace Embeddings, engineered semantic retrieval logic, and created an interactive Streamlit UI.',
-    architecture: ['PDF Document', 'Text Extraction', 'Chunking', 'Embeddings', 'FAISS Index', 'Semantic Retrieval', 'LLM', 'Answer'],
-    tech: ['Python', 'LangChain', 'FAISS', 'HuggingFace Embeddings', 'Streamlit', 'SQLite', 'LLM'],
-    accent: '#2D5A4C'
-  }
-];
-
-const CERTS_BY_CATEGORY = {
-  'Java': [
-    { name: 'Oracle Java Foundations', issuer: 'Oracle', link: null, logo: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg' },
-    { name: 'Java Programming Achievement — Intermediate Level', issuer: 'DataCamp', link: 'https://www.datacamp.com/completed/statement-of-accomplishment/course/d79c6452e40e0e7b71a6e48201891568d711e6b6', logo: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg' },
-    { name: 'Introduction to Java', issuer: 'DataCamp', link: 'https://www.datacamp.com/completed/statement-of-accomplishment/course/ee779adf5c1e9be79a2a71c4c4f9ce16141f77b2', logo: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg' },
-    { name: 'Introduction to Object-Oriented Programming in Java', issuer: 'DataCamp', link: 'https://www.datacamp.com/completed/statement-of-accomplishment/course/b648a2de22341e5a2404de060f5f1a23c6283b2d', logo: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg' }
-  ],
-  'Git': [
-    { name: 'Introduction to Git', issuer: 'DataCamp', link: 'https://www.datacamp.com/completed/statement-of-accomplishment/course/bc4540ba3e583dbeae2d58c941cc1d2a3f5979e4', logo: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/git/git-original.svg' },
-    { name: 'Intermediate Git', issuer: 'DataCamp', link: 'https://www.datacamp.com/completed/statement-of-accomplishment/course/35e512fcaa8c19610a262d361f198e9605b3f8f4', logo: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/git/git-original.svg' }
-  ],
-  'Python': [
-    { name: 'Introduction Python', issuer: '365 Data Science', link: 'https://learn.365datascience.com/certificates/CC-D782A4BF37/', logo: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg' },
-    { name: 'Intermediate Python', issuer: '365 Data Science', link: 'https://learn.365datascience.com/certificates/CC-83808A5853/', logo: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg' }
-  ],
-  'JavaScript': [
-    { name: 'JavaScript Essentials 1', issuer: 'Cisco Networking Academy', link: null, logo: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg' }
-  ]
-};
-
-/* ─── HOOK: Intersection Observer ─── */
-function useVisible(threshold = 0.15) {
+/* ─── Hook d'animation au défilement (Observer accessible) ─── */
+function useScrollReveal(threshold = 0.12) {
   const ref = useRef(null);
-  const [visible, setVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+
   useEffect(() => {
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) setVisible(true); },
+    // Si l'utilisateur préfère réduire les animations, on active immédiatement
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setIsVisible(true);
+      return;
+    }
+
+    const currentRef = ref.current;
+    if (!currentRef) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(entry.target);
+        }
+      },
       { threshold }
     );
-    if (ref.current) obs.observe(ref.current);
-    return () => obs.disconnect();
+
+    observer.observe(currentRef);
+    return () => {
+      if (currentRef) observer.unobserve(currentRef);
+    };
   }, [threshold]);
-  return [ref, visible];
+
+  return [ref, isVisible];
 }
 
-/* ─── COMPONENTS ─── */
-
-function Nav({ active }) {
-  const links = ['Home', 'About', 'Skills', 'Experience', 'Projects', 'Education', 'Certifications', 'Contact'];
-  const ids   = ['home', 'about', 'skills', 'experience', 'projects', 'education', 'certifications', 'contact'];
-  const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', fn);
-    return () => window.removeEventListener('scroll', fn);
-  }, []);
-
-  useEffect(() => {
-    document.body.style.overflow = menuOpen ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
-  }, [menuOpen]);
-
-  const closeMenu = () => setMenuOpen(false);
-
-  const linkStyle = (id) => ({
-    fontFamily: 'var(--font-ui)',
-    fontSize: '0.75rem',
-    fontWeight: 700,
-    letterSpacing: '0.12em',
-    textTransform: 'uppercase',
-    color: active === id ? 'var(--chambray)' : 'var(--espresso)',
-    opacity: active === id ? 1 : 0.6,
-    transition: 'var(--transition-fast)',
-    position: 'relative',
-  });
-
+/* ─── Composant Logo de Marque (Monogramme Stylisé CE) ─── */
+function Logo({ dark = false }) {
   return (
-    <>
-      <nav className="glass" style={{
-        position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000,
-        height: scrolled || menuOpen ? '70px' : '90px',
-        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        padding: '0 clamp(16px, 5vw, 8vw)',
-        transition: 'var(--transition-smooth)',
-        borderBottom: scrolled || menuOpen ? '1px solid rgba(121, 163, 195, 0.15)' : '1px solid transparent',
-        background: scrolled || menuOpen ? 'var(--white-glass)' : 'transparent',
-      }}>
-        <a href="#home" className="nav-logo" style={{
-          fontFamily: 'var(--font-display)',
-          fontSize: '1.8rem',
-          fontWeight: 700,
-          color: 'var(--espresso)',
-          cursor: 'pointer',
-        }} onClick={closeMenu}>
-          C<span style={{ color: 'var(--chambray)' }}>.</span>EH
-        </a>
-
-        <div className="nav-desktop">
-          {links.map((l, i) => (
-            <a key={l} href={`#${ids[i]}`} style={linkStyle(ids[i])}>
-              {l}
-              {active === ids[i] && (
-                <div style={{
-                  position: 'absolute', bottom: -6, left: 0, width: '100%', height: 2,
-                  background: 'var(--chambray)', borderRadius: 2,
-                }} />
-              )}
-            </a>
-          ))}
-          <a
-            href="/CV_ELHOUMA_CHAYMA__.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              padding: '8px 16px',
-              background: 'var(--chambray)',
-              color: 'var(--white)',
-              borderRadius: '6px',
-              fontSize: '0.75rem',
-              fontWeight: 700,
-              letterSpacing: '0.08em',
-              textTransform: 'uppercase',
-              boxShadow: 'var(--shadow-sm)',
-              transition: 'var(--transition-fast)'
-            }}
-          >
-            CV
-          </a>
-        </div>
-
-        <button
-          type="button"
-          className="nav-mobile-btn"
-          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-          aria-expanded={menuOpen}
-          onClick={() => setMenuOpen((o) => !o)}
-        >
-          {menuOpen ? (
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-              <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
-            </svg>
-          ) : (
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-              <line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="18" x2="21" y2="18" />
-            </svg>
-          )}
-        </button>
-      </nav>
-
-      <div className={`nav-mobile-menu${menuOpen ? ' open' : ''}`} aria-hidden={!menuOpen}>
-        {links.map((l, i) => (
-          <a
-            key={l}
-            href={`#${ids[i]}`}
-            className={active === ids[i] ? 'active' : ''}
-            onClick={closeMenu}
-          >
-            {l}
-          </a>
-        ))}
-        <a
-          href="/CV_ELHOUMA_CHAYMA__.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{ color: 'var(--chambray)', fontWeight: 700 }}
-          onClick={closeMenu}
-        >
-          📄 Download CV
-        </a>
+    <div className="brand-logo">
+      <div className="brand-logo-icon" aria-hidden="true">
+        <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="38" height="38" rx="10" fill={dark ? 'var(--white)' : 'var(--espresso)'} />
+          {/* Lettre C géométrique moderne */}
+          <path
+            d="M18 12H13.5C11.0147 12 9 14.0147 9 16.5V21.5C9 23.9853 11.0147 26 13.5 26H18"
+            stroke={dark ? 'var(--espresso)' : 'var(--chambray)'}
+            strokeWidth="2.5"
+            strokeLinecap="round"
+          />
+          {/* Lettre E géométrique moderne */}
+          <path
+            d="M22 12H28.5M22 19H27M22 26H28.5M22 12V26"
+            stroke={dark ? 'var(--chambray)' : 'var(--glacier)'}
+            strokeWidth="2.3"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
       </div>
-    </>
+      <div className="brand-logo-text">
+        <span className="brand-logo-title" style={{ color: dark ? 'var(--white)' : 'var(--espresso)' }}>
+          Chayma El Houma
+        </span>
+        <span className="brand-logo-tagline" style={{ color: dark ? 'var(--glacier)' : 'var(--clay)' }}>
+          Développeuse Full Stack
+        </span>
+      </div>
+    </div>
   );
 }
 
-function Hero() {
+/* ─── Composant Navigation Fixe ─── */
+function Navbar({ activeSection }) {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 30);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Empêcher le scroll arrière-plan quand le menu mobile est ouvert
+  useEffect(() => {
+    document.body.style.overflow = isMobileMenuOpen ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMobileMenuOpen]);
+
+  const navLinks = [
+    { label: 'Accueil', href: '#home', id: 'home' },
+    { label: 'À propos', href: '#about', id: 'about' },
+    { label: 'Compétences', href: '#skills', id: 'skills' },
+    { label: 'Parcours', href: '#parcours', id: 'parcours' },
+    { label: 'Projets', href: '#projects', id: 'projects' },
+    { label: 'Certifications', href: '#certifications', id: 'certifications' },
+    { label: 'Contact', href: '#contact', id: 'contact' },
+  ];
+
+  const closeMenu = () => setIsMobileMenuOpen(false);
+
   return (
-    <section id="home" className="hero-section" style={{
-      minHeight: '100vh',
-      background: `radial-gradient(circle at 70% 30%, var(--glacier) 0%, var(--white) 100%)`,
-      display: 'flex', alignItems: 'center',
-      position: 'relative', overflow: 'hidden',
-      padding: '100px clamp(16px, 5vw, 8vw) 4rem',
+    <header className="navbar" role="banner" style={{
+      boxShadow: isScrolled ? 'var(--shadow-sm)' : 'none',
     }}>
-      <div className="hero-decor-large" style={{
-        position: 'absolute', top: '15%', right: '10%', width: '400px', height: '400px',
-        background: 'var(--chambray)', opacity: 0.05, borderRadius: '50%', filter: 'blur(80px)',
-        animation: 'float 10s ease-in-out infinite',
-      }} />
-      <div className="hero-decor-small" style={{
-        position: 'absolute', bottom: '10%', left: '5%', width: '300px', height: '300px',
-        background: 'var(--clay)', opacity: 0.05, borderRadius: '50%', filter: 'blur(60px)',
-        animation: 'float 8s ease-in-out infinite reverse',
-      }} />
+      <div className="container nav-container">
+        <a href="#home" className="nav-logo-link" onClick={closeMenu} aria-label="Accueil - Chayma El Houma">
+          <Logo />
+        </a>
 
-      <div className="hero-grid" style={{ maxWidth: '1200px', zIndex: 10 }}>
-        <div>
-          <div style={{
-            display: 'inline-flex', alignItems: 'center', gap: '10px',
-            padding: '8px 16px', background: 'var(--espresso-soft)', borderRadius: '100px',
-            marginBottom: '2rem', animation: 'fadeUp 0.6s ease forwards'
-          }}>
-            <div style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--chambray)', animation: 'pulse-glow 2s infinite' }} />
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', fontWeight: 600, color: 'var(--clay)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-              Java/Spring Boot • React • REST APIs • PostgreSQL
-            </span>
-          </div>
+        {/* Liens Desktop */}
+        <nav className="nav-desktop" aria-label="Navigation principale">
+          <ul className="nav-desktop-links">
+            {navLinks.map((link) => (
+              <li key={link.id}>
+                <a
+                  href={link.href}
+                  className={`nav-link ${activeSection === link.id ? 'active' : ''}`}
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+            <li>
+              <a
+                href={PERSONAL_INFO.cvPath}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="nav-btn-cv"
+                aria-label="Télécharger mon CV au format PDF"
+              >
+                <span>CV (PDF)</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+              </a>
+            </li>
+          </ul>
+        </nav>
 
-          <h1 style={{
-            fontSize: 'clamp(3.5rem, 8vw, 6.5rem)', fontWeight: 300, lineHeight: 1,
-            color: 'var(--espresso)', marginBottom: '1rem', animation: 'fadeUp 0.8s 0.2s ease forwards', opacity: 0
-          }}>
-            Chayma <br />
-            <span style={{ fontWeight: 700, fontStyle: 'italic' }} className="text-gradient">EL HOUMA</span>
-          </h1>
+        {/* Bouton Burger Mobile */}
+        <button
+          type="button"
+          className="nav-mobile-toggle"
+          aria-label={isMobileMenuOpen ? 'Fermer le menu de navigation' : 'Ouvrir le menu de navigation'}
+          aria-expanded={isMobileMenuOpen}
+          onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+        >
+          {isMobileMenuOpen ? (
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          ) : (
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          )}
+        </button>
+      </div>
 
-          <p style={{
-            fontSize: '1.1rem', color: 'var(--clay)', maxWidth: '560px', marginBottom: '2.5rem',
-            animation: 'fadeUp 0.8s 0.4s ease forwards', opacity: 0, lineHeight: 1.7
-          }}>
-            Final-year Computer Science and Artificial Intelligence Engineering student specializing in software and web development. Focused on building robust backend systems with <strong>Java 17 & Spring Boot</strong>, modern web interfaces with <strong>React & Next.js</strong>, and incorporating Generative AI solutions.
-          </p>
+      {/* Menu Déroulant Mobile */}
+      <div className={`nav-mobile-menu ${isMobileMenuOpen ? 'open' : ''}`} aria-hidden={!isMobileMenuOpen}>
+        {navLinks.map((link) => (
+          <a
+            key={link.id}
+            href={link.href}
+            className={`nav-mobile-link ${activeSection === link.id ? 'active' : ''}`}
+            onClick={closeMenu}
+          >
+            {link.label}
+          </a>
+        ))}
+        <a
+          href={PERSONAL_INFO.cvPath}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="nav-btn-cv"
+          style={{ alignSelf: 'flex-start', marginTop: '12px' }}
+          onClick={closeMenu}
+        >
+          📄 Télécharger mon CV
+        </a>
+      </div>
+    </header>
+  );
+}
 
-          <div className="hero-actions" style={{ animation: 'fadeUp 0.8s 0.6s ease forwards', opacity: 0 }}>
-            <a href="#projects" className="btn" style={{
-              padding: '16px 28px', background: 'var(--espresso)', color: 'var(--white)',
-              borderRadius: '8px', fontWeight: 700, fontSize: '0.85rem', letterSpacing: '0.05em',
-              transition: 'var(--transition-smooth)', boxShadow: 'var(--shadow-md)'
-            }}
-            onMouseEnter={e => { e.target.style.transform = 'translateY(-3px)'; e.target.style.boxShadow = 'var(--shadow-lg)'; }}
-            onMouseLeave={e => { e.target.style.transform = 'translateY(0)'; e.target.style.boxShadow = 'var(--shadow-md)'; }}
-            >
-              Explore my projects
-            </a>
+/* ─── Composant Hero (Deux colonnes & Photo) ─── */
+function Hero() {
+  const [photoError, setPhotoError] = useState(false);
+
+  return (
+    <section id="home" className="hero-section" aria-label="Présentation">
+      <div className="container">
+        <div className="hero-grid">
+          
+          {/* Colonne Gauche : Textes, Titres, Actions */}
+          <div className="hero-content">
             
-            <a href="/CV_ELHOUMA_CHAYMA__.pdf" target="_blank" rel="noopener noreferrer" className="btn" style={{
-              padding: '16px 28px', background: 'var(--chambray)', color: 'var(--white)',
-              borderRadius: '8px', fontWeight: 700, fontSize: '0.85rem', letterSpacing: '0.05em',
-              transition: 'var(--transition-smooth)', boxShadow: 'var(--shadow-md)',
-              display: 'flex', alignItems: 'center', gap: '8px'
-            }}
-            onMouseEnter={e => { e.target.style.transform = 'translateY(-3px)'; e.target.style.background = '#608CAE'; }}
-            onMouseLeave={e => { e.target.style.transform = 'translateY(0)'; e.target.style.background = 'var(--chambray)'; }}
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                <polyline points="14 2 14 8 20 8"></polyline>
-                <line x1="12" y1="18" x2="12" y2="12"></line>
-                <polyline points="9 15 12 12 15 15"></polyline>
-              </svg>
-              Download CV
-            </a>
+            {/* Badge PFE demandé */}
+            <div className="hero-badge">
+              <span className="hero-badge-pulse" aria-hidden="true"></span>
+              <span>{PERSONAL_INFO.badge}</span>
+            </div>
 
-            <a href="#contact" className="btn" style={{
-              padding: '16px 28px', border: '1.5px solid var(--espresso)', color: 'var(--espresso)',
-              borderRadius: '8px', fontWeight: 700, fontSize: '0.85rem',
-              transition: 'var(--transition-smooth)'
-            }}
-            onMouseEnter={e => { e.target.style.background = 'rgba(58, 33, 25, 0.05)'; }}
-            onMouseLeave={e => { e.target.style.background = 'transparent'; }}
-            >
-              Contact me
-            </a>
-          </div>
-        </div>
+            <h1 className="hero-title">
+              <span className="hero-name-highlight">{PERSONAL_INFO.name}</span>
+              {PERSONAL_INFO.title}
+            </h1>
 
-        <div className="hero-profile" style={{ position: 'relative', animation: 'fadeIn 1.5s 0.5s ease forwards', opacity: 0, marginTop: '70px' }}>
-          <div className="glass" style={{
-            width: '100%', aspectRatio: '4/5', borderRadius: '24px', overflow: 'hidden',
-            display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-            padding: '2.5rem', textAlign: 'center', border: '1px solid rgba(255,255,255,0.4)',
-            boxShadow: 'var(--shadow-lg)'
-          }}>
-             <div style={{
-              width: 110, height: 110, borderRadius: '50%',
-              background: 'linear-gradient(135deg, var(--chambray), var(--clay))',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontSize: '2.8rem', fontWeight: 700, color: 'var(--white)',
-              marginBottom: '1.5rem', border: '4px solid var(--white)',
-              boxShadow: '0 10px 20px rgba(121, 163, 195, 0.3)'
-            }}>CE</div>
-            <h3 style={{ fontSize: '1.8rem', color: 'var(--espresso)', marginBottom: '0.25rem' }}>Chayma EL HOUMA</h3>
-            <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--chambray)', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '1.75rem', fontWeight: 600 }}>
-              Software & Web Developer
+            <p className="hero-pitch">
+              {PERSONAL_INFO.heroSubtitle}
             </p>
-            
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.75rem', width: '100%' }}>
-              {[
-                { label: 'Internships', val: '3' },
-                { label: 'Projects', val: '4+' },
-                { label: 'Certifs', val: '9' }
-              ].map(stat => (
-                <div key={stat.label} style={{ padding: '0.85rem 0.5rem', background: 'var(--espresso-soft)', borderRadius: '12px' }}>
-                  <div style={{ fontSize: '1.4rem', fontWeight: 700, color: 'var(--espresso)' }}>{stat.val}</div>
-                  <div style={{ fontSize: '0.62rem', color: 'var(--clay)', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 600 }}>{stat.label}</div>
+
+            {/* Boutons d'action demandés */}
+            <div className="hero-actions">
+              <a
+                href={PERSONAL_INFO.cvPath}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                <span>Télécharger mon CV</span>
+              </a>
+
+              <a href="#contact" className="btn-secondary">
+                <span>Me contacter</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </a>
+            </div>
+
+            {/* Liens GitHub & LinkedIn demandés */}
+            <div className="hero-socials">
+              <a
+                href={PERSONAL_INFO.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="social-pill"
+                aria-label="Profil GitHub de Chayma EL HOUMA"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.729.083-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/>
+                </svg>
+                <span>GitHub</span>
+              </a>
+
+              <a
+                href={PERSONAL_INFO.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="social-pill"
+                aria-label="Profil LinkedIn de Chayma EL HOUMA"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style={{ color: 'var(--linkedin-blue)' }} aria-hidden="true">
+                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                </svg>
+                <span>LinkedIn</span>
+              </a>
+            </div>
+
+          </div>
+
+          {/* Colonne Droite : Photo (Étape 3) */}
+          <div className="hero-photo-wrapper">
+            {/* Décor arrière en couleur d'accent existante (--glacier) */}
+            <div className="hero-photo-backdrop" aria-hidden="true"></div>
+
+            <div className="hero-photo-container">
+              {!photoError ? (
+                <img
+                  src={PERSONAL_INFO.photo.src}
+                  alt={PERSONAL_INFO.photo.alt}
+                  width={PERSONAL_INFO.photo.width}
+                  height={PERSONAL_INFO.photo.height}
+                  loading="eager"
+                  className="hero-photo-img"
+                  onError={() => setPhotoError(true)}
+                />
+              ) : (
+                /* Fallback initiales « CH » si la photo ne charge pas */
+                <div className="hero-photo-fallback" role="img" aria-label={PERSONAL_INFO.photo.alt}>
+                  <span className="fallback-initials">{PERSONAL_INFO.initials}</span>
+                  <span className="fallback-text">{PERSONAL_INFO.name}</span>
                 </div>
-              ))}
+              )}
             </div>
           </div>
-          <div style={{ position: 'absolute', top: -20, right: -20, width: 60, height: 60, background: 'var(--bisque)', borderRadius: '50%', opacity: 0.5, zIndex: -1 }} />
-          <div style={{ position: 'absolute', bottom: -10, left: -10, width: 40, height: 40, background: 'var(--glacier)', borderRadius: '50%', opacity: 0.8, zIndex: -1 }} />
+
         </div>
       </div>
     </section>
   );
 }
 
-function SectionHeader({ label, title, center = false, dark = false, visible }) {
-  return (
-    <div className="section-header-wrap" style={{
-      textAlign: center ? 'center' : 'left',
-      marginBottom: '4rem',
-      opacity: visible ? 1 : 0,
-      transform: visible ? 'none' : 'translateY(20px)',
-      transition: 'var(--transition-smooth)'
-    }}>
-      <span style={{
-        fontFamily: 'var(--font-mono)', fontSize: '0.8rem', fontWeight: 600,
-        color: 'var(--chambray)', textTransform: 'uppercase', letterSpacing: '0.2em',
-        display: 'block', marginBottom: '1rem'
-      }}>{label}</span>
-      <h2 style={{
-        fontSize: 'clamp(2.5rem, 5vw, 4rem)', color: dark ? 'var(--white)' : 'var(--espresso)',
-        lineHeight: 1.1, fontWeight: 300
-      }}>
-        {title}
-      </h2>
-      <div style={{
-        height: '3px', width: '60px', background: 'var(--chambray)',
-        margin: center ? '1.5rem auto 0' : '1.5rem 0 0',
-        borderRadius: '2px',
-        animation: visible ? 'draw-line 1s ease forwards' : 'none'
-      }} />
-    </div>
-  );
-}
-
+/* ─── Composant À Propos ─── */
 function About() {
-  const [ref, visible] = useVisible();
-  
-  const aboutParagraphs = [
-    "I am a final-year Computer Science and Artificial Intelligence engineering student at ENSA Safi, passionate about software and web development.",
-    "My main expertise is Java 17 and Spring Boot, with experience in designing REST APIs, business features, database integration and secure backend applications.",
-    "I also have hands-on experience with React, Next.js and TypeScript for building modern web interfaces and integrating frontend applications with REST APIs.",
-    "Through my internships and projects, I have also worked with software testing, Docker, Git and Generative AI technologies such as LLMs and RAG."
-  ];
+  const [sectionRef, isVisible] = useScrollReveal();
 
   return (
-    <section id="about" ref={ref} className="section-padding" style={{
-      background: `linear-gradient(160deg, var(--espresso) 0%, #5c3527 60%, #3A2119 100%)`,
-      position: 'relative', overflow: 'hidden',
-    }}>
-      <div style={{
-        position: 'absolute', top: '-80px', right: '-80px',
-        width: 400, height: 400, borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(121,163,195,0.1) 0%, transparent 70%)',
-        pointerEvents: 'none',
-      }} />
-      <div className="about-grid" style={{ maxWidth: '1100px', margin: '0 auto', gridTemplateColumns: '1fr' }}>
-        <div style={{ opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateX(-30px)', transition: 'all 0.9s ease', marginBottom: '2.5rem' }}>
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', fontWeight: 600, color: 'var(--chambray)', textTransform: 'uppercase', letterSpacing: '0.2em', display: 'block', marginBottom: '1.2rem' }}>
-            About
-          </span>
-          <h2 style={{ fontSize: 'clamp(2.5rem, 4.5vw, 3.8rem)', fontWeight: 300, color: 'var(--bisque)', lineHeight: 1.1, marginBottom: '1.5rem' }}>
-            About <em style={{ fontStyle: 'italic', fontWeight: 700, color: 'var(--glacier)' }}>Me</em>
-          </h2>
-          <div style={{ width: 60, height: 3, background: 'var(--chambray)', borderRadius: 2 }} />
+    <section id="about" className="section section-dark" ref={sectionRef} aria-label="À propos de moi">
+      <div className={`container reveal-fade-up ${isVisible ? 'visible' : ''}`}>
+        <div className="section-header">
+          <span className="section-badge">Profil &amp; Vision</span>
+          <h2 className="section-title">À propos de moi</h2>
+          <div className="section-line"></div>
         </div>
-        
-        <div style={{ opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateX(30px)', transition: 'all 0.9s 0.2s ease' }}>
-          <div className="about-card" style={{
-            background: 'rgba(210,226,236,0.05)',
-            border: '1px solid rgba(210,226,236,0.12)',
-            borderRadius: '20px', padding: '3rem',
-            backdropFilter: 'blur(10px)',
-          }}>
-            {aboutParagraphs.map((para, i) => (
-              <p key={i} style={{
-                fontFamily: 'var(--font-ui)',
-                fontSize: '1.05rem',
-                lineHeight: 1.85,
-                color: 'rgba(235,205,183,0.85)',
-                marginBottom: i < aboutParagraphs.length - 1 ? '1.5rem' : 0,
-                paddingLeft: '1.2rem',
-                borderLeft: i === 0 || i === 1 ? '3px solid var(--chambray)' : '3px solid rgba(121, 163, 195, 0.3)',
-              }}>{para}</p>
+
+        <div className="about-card">
+          {ABOUT_TEXTS.map((paragraph, index) => (
+            <p key={index} className="about-paragraph">
+              {paragraph}
+            </p>
+          ))}
+
+          <div className="stats-grid">
+            {PERSONAL_INFO.stats.map((stat, idx) => (
+              <div key={idx} className="stat-item">
+                <div className="stat-value">{stat.value}</div>
+                <div className="stat-label">{stat.label}</div>
+              </div>
             ))}
           </div>
         </div>
@@ -585,67 +352,81 @@ function About() {
   );
 }
 
+/* ─── Composant Compétences (5 Catégories & Highlights) ─── */
 function Skills() {
-  const [ref, visible] = useVisible();
+  const [sectionRef, isVisible] = useScrollReveal();
+
   return (
-    <section id="skills" ref={ref} className="section-padding" style={{ background: 'var(--white)' }}>
-      <SectionHeader label="Expertise" title="Technical Skills" visible={visible} />
-      
-      <div style={{
-        display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem',
-        opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateY(30px)',
-        transition: 'var(--transition-smooth) 0.3s'
-      }}>
-        {Object.entries(SKILLS).map(([cat, items], idx) => (
-          <div key={cat} className="glass" style={{
-            padding: '2.5rem', borderRadius: '20px', transition: 'var(--transition-smooth)',
-            border: '1px solid rgba(121,163,195,0.15)'
-          }}
-          onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-8px)'; e.currentTarget.style.boxShadow = 'var(--shadow-lg)'; e.currentTarget.style.borderColor = 'var(--chambray)'; }}
-          onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.borderColor = 'rgba(121,163,195,0.15)'; }}
-          >
-            <h3 style={{ fontSize: '1.4rem', color: 'var(--espresso)', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--chambray)' }} />
-              {cat}
-            </h3>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.6rem' }}>
-              {items.map(skill => (
-                <span key={skill} style={{
-                  padding: '6px 14px', background: 'var(--white)', borderRadius: '6px',
-                  fontSize: '0.82rem', fontWeight: 600, color: 'var(--espresso)',
-                  border: '1px solid var(--glacier)', transition: 'var(--transition-fast)'
-                }}
-                onMouseEnter={e => { e.target.style.background = 'var(--glacier)'; e.target.style.color = 'var(--espresso)'; }}
-                onMouseLeave={e => { e.target.style.background = 'var(--white)'; e.target.style.color = 'var(--espresso)'; }}
-                >{skill}</span>
-              ))}
+    <section id="skills" className="section" ref={sectionRef} aria-label="Compétences techniques">
+      <div className={`container reveal-fade-up ${isVisible ? 'visible' : ''}`}>
+        <div className="section-header">
+          <span className="section-badge">Expertise</span>
+          <h2 className="section-title">Compétences Techniques</h2>
+          <div className="section-line"></div>
+        </div>
+
+        <div className="skills-grid">
+          {SKILL_CATEGORIES.map((catGroup) => (
+            <div key={catGroup.category} className="card skill-category-card">
+              <div className="skill-cat-header">
+                <span className="skill-cat-icon" aria-hidden="true"></span>
+                <h3 className="skill-cat-title">{catGroup.category}</h3>
+              </div>
+              <p className="skill-cat-desc">{catGroup.description}</p>
+              
+              <div className="skill-tags-wrapper">
+                {catGroup.skills.map((skill) => (
+                  <span
+                    key={skill.name}
+                    className={`skill-tag ${skill.featured ? 'featured' : ''}`}
+                    title={skill.featured ? 'Compétence mise en avant' : undefined}
+                  >
+                    {skill.name}
+                  </span>
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   );
 }
 
+/* ─── Modal Détails Expérience / Stage ─── */
 function ExperienceModal({ exp, onClose }) {
+  // Fermeture par touche Escape
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
+
   if (!exp) return null;
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={e => e.stopPropagation()}>
+    <div className="modal-overlay" onClick={onClose} role="dialog" aria-modal="true" aria-labelledby="modal-exp-title">
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
           <div>
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--chambray)', fontWeight: 700 }}>
-              {exp.dates}
+            <span className="timeline-badge stage" style={{ marginBottom: '4px' }}>
+              {exp.typeLabel}
             </span>
-            <h3 style={{ fontSize: '1.6rem', color: 'var(--espresso)', margin: 0, marginTop: '2px' }}>
+            <h3 id="modal-exp-title" className="timeline-title" style={{ marginTop: '4px' }}>
               {exp.title}
             </h3>
-            <p style={{ fontSize: '1rem', color: 'var(--clay)', margin: 0, fontWeight: 600 }}>
-              {exp.company} — {exp.location}
+            <p className="timeline-org">
+              {exp.organization} — {exp.location}
             </p>
           </div>
-          <button type="button" className="modal-close-btn" onClick={onClose} aria-label="Close modal">
+          <button
+            type="button"
+            className="modal-close-btn"
+            onClick={onClose}
+            aria-label="Fermer la boîte de dialogue"
+          >
             ✕
           </button>
         </div>
@@ -653,50 +434,42 @@ function ExperienceModal({ exp, onClose }) {
         <div className="modal-body">
           {exp.isPrivate && (
             <div style={{
-              display: 'inline-flex', alignItems: 'center', gap: '8px',
-              padding: '6px 14px', background: 'rgba(58, 33, 25, 0.06)',
-              borderRadius: '8px', border: '1px solid rgba(58, 33, 25, 0.12)',
-              marginBottom: '1.5rem', fontSize: '0.75rem', fontWeight: 700, color: 'var(--espresso)'
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '6px 12px',
+              background: 'var(--espresso-soft)',
+              borderRadius: 'var(--radius-sm)',
+              border: '1px solid var(--espresso-border)',
+              marginBottom: '20px',
+              fontSize: '0.8rem',
+              fontWeight: 600,
+              color: 'var(--espresso)'
             }}>
-              <span>🔒 Private Enterprise Project</span>
-              <span style={{ color: 'var(--clay)', fontWeight: 400 }}>• Professional Confidentiality Maintained</span>
+              <span aria-hidden="true">🔒</span>
+              <span>Projet d’entreprise privé — Confidentialité respectée</span>
             </div>
           )}
 
-          <div style={{ marginBottom: '2rem' }}>
-            <h4 style={{ fontSize: '1.2rem', color: 'var(--espresso)', marginBottom: '0.75rem', borderBottom: '2px solid var(--glacier)', paddingBottom: '0.4rem' }}>
-              Overview
-            </h4>
-            <p style={{ fontSize: '1rem', color: 'var(--espresso)', lineHeight: 1.7 }}>
-              {exp.overview}
-            </p>
-          </div>
+          <h4 className="modal-section-title">Présentation du stage</h4>
+          <p style={{ marginBottom: '20px', lineHeight: 1.7, color: 'var(--espresso)' }}>
+            {exp.overview}
+          </p>
 
-          <div style={{ marginBottom: '2rem' }}>
-            <h4 style={{ fontSize: '1.2rem', color: 'var(--espresso)', marginBottom: '0.75rem', borderBottom: '2px solid var(--glacier)', paddingBottom: '0.4rem' }}>
-              My Contribution & Responsibilities
-            </h4>
-            <ul style={{ paddingLeft: '1.25rem', color: 'var(--espresso)', fontSize: '0.95rem', lineHeight: 1.8 }}>
-              {exp.contribution.map((item, idx) => (
-                <li key={idx} style={{ marginBottom: '0.4rem' }}>{item}</li>
-              ))}
-            </ul>
-          </div>
+          <h4 className="modal-section-title">Responsabilités &amp; Réalisations</h4>
+          <ul className="modal-bullet-list">
+            {exp.contribution.map((item, idx) => (
+              <li key={idx}>{item}</li>
+            ))}
+          </ul>
 
-          <div>
-            <h4 style={{ fontSize: '1.2rem', color: 'var(--espresso)', marginBottom: '0.75rem', borderBottom: '2px solid var(--glacier)', paddingBottom: '0.4rem' }}>
-              Technologies & Tools
-            </h4>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.6rem' }}>
-              {exp.tech.map(t => (
-                <span key={t} style={{
-                  fontSize: '0.8rem', fontWeight: 600, color: 'var(--espresso)',
-                  padding: '6px 12px', background: 'var(--glacier)', borderRadius: '6px'
-                }}>
-                  {t}
-                </span>
-              ))}
-            </div>
+          <h4 className="modal-section-title">Technologies &amp; Outils</h4>
+          <div className="timeline-tech-list">
+            {exp.tech.map((t) => (
+              <span key={t} className="timeline-tech-pill" style={{ background: 'var(--glacier)' }}>
+                {t}
+              </span>
+            ))}
           </div>
         </div>
       </div>
@@ -704,79 +477,108 @@ function ExperienceModal({ exp, onClose }) {
   );
 }
 
-function ProfessionalExperience() {
-  const [ref, visible] = useVisible();
+/* ─── Composant Parcours (Frise Chronologique : Formation & 3 Stages) ─── */
+function Timeline() {
+  const [sectionRef, isVisible] = useScrollReveal();
+  const [activeFilter, setActiveFilter] = useState('all');
   const [selectedExp, setSelectedExp] = useState(null);
 
-  return (
-    <section id="experience" ref={ref} className="section-padding" style={{ background: 'var(--espresso)' }}>
-      <SectionHeader label="Career" title="Professional Experience" dark visible={visible} />
-      
-      <div className="experience-timeline" style={{ position: 'relative', paddingLeft: '2rem', borderLeft: '2px solid rgba(121,163,195,0.2)', maxWidth: '1000px', margin: '0 auto' }}>
-        {EXPERIENCES.map((exp, idx) => (
-          <div key={idx} style={{
-            marginBottom: '4rem', position: 'relative',
-            opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateX(-20px)',
-            transition: `all 0.8s ${idx * 0.15}s`
-          }}>
-            <div className="experience-dot" style={{
-              position: 'absolute', left: '-2.7rem', top: '0', width: '20px', height: '20px',
-              borderRadius: '50%', background: 'var(--chambray)', border: '4px solid var(--espresso)',
-              boxShadow: '0 0 0 4px rgba(121,163,195,0.1)',
-            }} />
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', color: 'var(--chambray)', fontWeight: 600 }}>
-                {exp.dates}
-              </span>
-              <h4 style={{ fontSize: '1.5rem', color: 'var(--white)', margin: 0 }}>
-                {exp.title}
-              </h4>
-              <p style={{ fontSize: '1.1rem', color: 'var(--bisque)', margin: 0, fontWeight: 500 }}>
-                {exp.company} — <span style={{ fontSize: '0.95rem', opacity: 0.8 }}>{exp.location}</span>
-              </p>
-              
-              <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '0.95rem', lineHeight: 1.7, margin: '0.75rem 0 1rem' }}>
-                {exp.shortSummary}
-              </p>
-              
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '1.5rem' }}>
-                {exp.tech.map(t => (
-                  <span key={t} style={{
-                    fontSize: '0.75rem', fontWeight: 600, color: 'var(--espresso)',
-                    padding: '4px 10px', background: 'var(--glacier)', borderRadius: '6px'
-                  }}>{t}</span>
-                ))}
-              </div>
+  const filteredItems = TIMELINE_ITEMS.filter((item) => {
+    if (activeFilter === 'internship') return item.type === 'internship';
+    if (activeFilter === 'education') return item.type === 'education';
+    return true;
+  });
 
-              <div>
-                <button
-                  type="button"
-                  onClick={() => setSelectedExp(exp)}
-                  style={{
-                    padding: '10px 20px',
-                    background: 'transparent',
-                    border: '1.5px solid var(--chambray)',
-                    color: 'var(--glacier)',
-                    borderRadius: '8px',
-                    fontSize: '0.82rem',
-                    fontWeight: 700,
-                    letterSpacing: '0.05em',
-                    cursor: 'pointer',
-                    transition: 'var(--transition-fast)',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '6px'
-                  }}
-                  onMouseEnter={e => { e.currentTarget.style.background = 'var(--chambray)'; e.currentTarget.style.color = 'var(--white)'; }}
-                  onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'var(--glacier)'; }}
-                >
-                  <span>View Experience</span>
-                  <span>→</span>
-                </button>
+  return (
+    <section id="parcours" className="section section-alt" ref={sectionRef} aria-label="Parcours académique et professionnel">
+      <div className={`container reveal-fade-up ${isVisible ? 'visible' : ''}`}>
+        <div className="section-header">
+          <span className="section-badge">Expérience &amp; Formation</span>
+          <h2 className="section-title">Mon Parcours</h2>
+          <div className="section-line"></div>
+        </div>
+
+        {/* Onglets de filtrage */}
+        <div className="timeline-filter-tabs" role="tablist" aria-label="Filtrer le parcours">
+          <button
+            type="button"
+            className={`timeline-tab-btn ${activeFilter === 'all' ? 'active' : ''}`}
+            onClick={() => setActiveFilter('all')}
+            role="tab"
+            aria-selected={activeFilter === 'all'}
+          >
+            Tout le parcours ({TIMELINE_ITEMS.length})
+          </button>
+          <button
+            type="button"
+            className={`timeline-tab-btn ${activeFilter === 'internship' ? 'active' : ''}`}
+            onClick={() => setActiveFilter('internship')}
+            role="tab"
+            aria-selected={activeFilter === 'internship'}
+          >
+            Stages en entreprise (3)
+          </button>
+          <button
+            type="button"
+            className={`timeline-tab-btn ${activeFilter === 'education' ? 'active' : ''}`}
+            onClick={() => setActiveFilter('education')}
+            role="tab"
+            aria-selected={activeFilter === 'education'}
+          >
+            Formation académique (3)
+          </button>
+        </div>
+
+        {/* Frise chronologique unifiée */}
+        <div className="timeline-container">
+          {filteredItems.map((item) => (
+            <article key={item.id} className={`timeline-item ${item.type}`}>
+              <div className="timeline-dot" aria-hidden="true"></div>
+              
+              <div className="card timeline-card">
+                <div className="timeline-meta">
+                  <span className={`timeline-badge ${item.type === 'internship' ? 'stage' : 'formation'}`}>
+                    {item.typeLabel}
+                  </span>
+                  <span className="timeline-period">{item.period}</span>
+                </div>
+
+                <h3 className="timeline-title">{item.title}</h3>
+                <p className="timeline-org">
+                  {item.organization} — {item.location}
+                </p>
+                <p className="timeline-desc">{item.shortSummary}</p>
+
+                <div className="timeline-tech-list">
+                  {item.tech.slice(0, 8).map((t) => (
+                    <span key={t} className="timeline-tech-pill">
+                      {t}
+                    </span>
+                  ))}
+                  {item.tech.length > 8 && (
+                    <span className="timeline-tech-pill" style={{ color: 'var(--clay)' }}>
+                      +{item.tech.length - 8}
+                    </span>
+                  )}
+                </div>
+
+                {item.type === 'internship' && (
+                  <div>
+                    <button
+                      type="button"
+                      className="timeline-action-btn"
+                      onClick={() => setSelectedExp(item)}
+                      aria-label={`Voir les responsabilités détaillées pour ${item.title}`}
+                    >
+                      <span>Détails de l'expérience</span>
+                      <span aria-hidden="true">→</span>
+                    </button>
+                  </div>
+                )}
               </div>
-            </div>
-          </div>
-        ))}
+            </article>
+          ))}
+        </div>
       </div>
 
       <ExperienceModal exp={selectedExp} onClose={() => setSelectedExp(null)} />
@@ -784,141 +586,112 @@ function ProfessionalExperience() {
   );
 }
 
+/* ─── Modal Détails Projet ─── */
 function ProjectModal({ project, onClose }) {
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
+
   if (!project) return null;
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={e => e.stopPropagation()}>
+    <div className="modal-overlay" onClick={onClose} role="dialog" aria-modal="true" aria-labelledby="modal-project-title">
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
           <div>
-            <button
-              type="button"
-              onClick={onClose}
-              style={{
-                background: 'none', border: 'none', color: 'var(--chambray)',
-                fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer',
-                display: 'inline-flex', alignItems: 'center', gap: '6px', marginBottom: '0.4rem'
-              }}
-            >
-              ← Back to Projects
-            </button>
-            <h3 style={{ fontSize: '1.75rem', color: 'var(--espresso)', margin: 0 }}>
-              {project.title}
-            </h3>
-            <span style={{
-              fontSize: '0.75rem', fontWeight: 700, color: 'var(--clay)',
-              textTransform: 'uppercase', letterSpacing: '0.1em'
-            }}>
+            <span className="project-category-badge" style={{ display: 'inline-block', marginBottom: '6px' }}>
               {project.category}
             </span>
+            <h3 id="modal-project-title" className="project-title" style={{ margin: 0 }}>
+              {project.title}
+            </h3>
           </div>
-          <button type="button" className="modal-close-btn" onClick={onClose} aria-label="Close modal">
+          <button
+            type="button"
+            className="modal-close-btn"
+            onClick={onClose}
+            aria-label="Fermer la boîte de dialogue"
+          >
             ✕
           </button>
         </div>
 
         <div className="modal-body">
-          <div style={{ marginBottom: '2rem' }}>
-            <h4 style={{ fontSize: '1.2rem', color: 'var(--espresso)', marginBottom: '0.5rem', borderBottom: '2px solid var(--glacier)', paddingBottom: '0.4rem' }}>
-              Overview
-            </h4>
-            <p style={{ fontSize: '1rem', color: 'var(--espresso)', lineHeight: 1.7 }}>
-              {project.overview}
-            </p>
-          </div>
+          <h4 className="modal-section-title">Vue d'ensemble</h4>
+          <p style={{ marginBottom: '20px', lineHeight: 1.7, color: 'var(--espresso)' }}>
+            {project.overview}
+          </p>
 
-          <div style={{ marginBottom: '2rem' }}>
-            <h4 style={{ fontSize: '1.2rem', color: 'var(--espresso)', marginBottom: '0.75rem', borderBottom: '2px solid var(--glacier)', paddingBottom: '0.4rem' }}>
-              Key Features
-            </h4>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.75rem' }}>
-              {project.features.map((feat, idx) => (
-                <div key={idx} style={{
-                  padding: '10px 14px', background: 'var(--espresso-soft)',
-                  borderRadius: '8px', fontSize: '0.88rem', fontWeight: 600, color: 'var(--espresso)',
-                  display: 'flex', alignItems: 'center', gap: '8px'
-                }}>
-                  <span style={{ color: 'var(--chambray)' }}>✓</span>
-                  <span>{feat}</span>
-                </div>
-              ))}
-            </div>
-          </div>
+          <h4 className="modal-section-title">Fonctionnalités Clés</h4>
+          <ul className="modal-bullet-list">
+            {project.features.map((feat, idx) => (
+              <li key={idx}>{feat}</li>
+            ))}
+          </ul>
 
-          <div style={{ marginBottom: '2rem' }}>
-            <h4 style={{ fontSize: '1.2rem', color: 'var(--espresso)', marginBottom: '0.5rem', borderBottom: '2px solid var(--glacier)', paddingBottom: '0.4rem' }}>
-              My Contribution
-            </h4>
-            <p style={{ fontSize: '0.95rem', color: 'var(--espresso)', lineHeight: 1.7 }}>
-              {project.contribution}
-            </p>
-          </div>
+          <h4 className="modal-section-title">Mon Rôle &amp; Contribution</h4>
+          <p style={{ marginBottom: '20px', lineHeight: 1.7, color: 'var(--espresso)' }}>
+            {project.contribution}
+          </p>
 
           {project.architecture && (
-            <div style={{ marginBottom: '2rem' }}>
-              <h4 style={{ fontSize: '1.2rem', color: 'var(--espresso)', marginBottom: '0.5rem', borderBottom: '2px solid var(--glacier)', paddingBottom: '0.4rem' }}>
-                Architecture & Workflow
-              </h4>
+            <>
+              <h4 className="modal-section-title">Architecture du Système</h4>
               <div className="architecture-flow">
                 {project.architecture.map((step, idx) => (
                   <React.Fragment key={idx}>
-                    <div className="flow-step">{step}</div>
-                    {idx < project.architecture.length - 1 && <div className="flow-arrow">➔</div>}
+                    <span className="flow-step">{step}</span>
+                    {idx < project.architecture.length - 1 && (
+                      <span className="flow-arrow" aria-hidden="true">➔</span>
+                    )}
                   </React.Fragment>
                 ))}
               </div>
-            </div>
+            </>
           )}
 
-          <div style={{ marginBottom: '2rem' }}>
-            <h4 style={{ fontSize: '1.2rem', color: 'var(--espresso)', marginBottom: '0.75rem', borderBottom: '2px solid var(--glacier)', paddingBottom: '0.4rem' }}>
-              Technologies Used
-            </h4>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.6rem' }}>
-              {project.tech.map(t => (
-                <span key={t} style={{
-                  fontSize: '0.85rem', fontWeight: 600, color: 'var(--chambray)',
-                  padding: '6px 14px', background: 'var(--glacier)', borderRadius: '6px'
-                }}>
-                  {t}
-                </span>
-              ))}
-            </div>
+          <h4 className="modal-section-title">Technologies Utilisées</h4>
+          <div className="project-techs" style={{ marginBottom: '24px' }}>
+            {project.tech.map((t) => (
+              <span key={t} className="project-tech-tag">
+                {t}
+              </span>
+            ))}
           </div>
 
-          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', paddingTop: '1rem', borderTop: '1px solid rgba(121, 163, 195, 0.15)' }}>
-            {project.githubLink && (
+          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', paddingTop: '16px', borderTop: '1px solid var(--espresso-soft)' }}>
+            {project.githubLink ? (
               <a
                 href={project.githubLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{
-                  padding: '12px 24px', background: 'var(--espresso)', color: 'var(--white)',
-                  borderRadius: '8px', fontWeight: 700, fontSize: '0.85rem',
-                  display: 'inline-flex', alignItems: 'center', gap: '8px',
-                  textDecoration: 'none'
-                }}
+                className="btn-primary"
               >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.729.083-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/>
                 </svg>
-                <span>GitHub Repository →</span>
+                <span>Dépôt GitHub</span>
               </a>
+            ) : (
+              /* TODO: Ajouter le lien GitHub public dès qu'il est disponible */
+              <span className="skill-tag" style={{ color: 'var(--clay)' }}>
+                Dépôt GitHub privé / confidentiel
+              </span>
             )}
+
+            {/* TODO: Ajouter le lien de démo en direct si disponible */}
             {project.demoLink && (
               <a
                 href={project.demoLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{
-                  padding: '12px 24px', background: 'var(--chambray)', color: 'var(--white)',
-                  borderRadius: '8px', fontWeight: 700, fontSize: '0.85rem',
-                  display: 'inline-flex', alignItems: 'center', gap: '8px',
-                  textDecoration: 'none'
-                }}
+                className="btn-secondary"
               >
-                <span>Live Demo →</span>
+                <span>Démo en ligne ➔</span>
               </a>
             )}
           </div>
@@ -928,262 +701,127 @@ function ProjectModal({ project, onClose }) {
   );
 }
 
+/* ─── Composant Projets Réalisés ─── */
 function Projects() {
-  const [ref, visible] = useVisible();
+  const [sectionRef, isVisible] = useScrollReveal();
   const [selectedProj, setSelectedProj] = useState(null);
 
   return (
-    <section id="projects" ref={ref} className="section-padding" style={{ background: 'var(--glacier)', backgroundOpacity: 0.3 }}>
-      <SectionHeader label="Portfolio" title="Projects" visible={visible} />
-      
-      <div className="projects-grid">
-        {PROJECTS.map((project, idx) => (
-          <div key={project.title} style={{
-            background: 'var(--white)', borderRadius: '24px', overflow: 'hidden',
-            boxShadow: 'var(--shadow-md)', transition: 'var(--transition-smooth)',
-            opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateY(40px)',
-            transitionDelay: `${idx * 0.1}s`, display: 'flex', flexDirection: 'column',
-          }}
-          onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-10px)'; e.currentTarget.style.boxShadow = 'var(--shadow-lg)'; }}
-          onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'var(--shadow-md)'; }}
-          >
-            <div className="project-header" style={{ height: '220px', background: project.accent, position: 'relative', overflow: 'hidden' }}>
-              <div style={{ position: 'absolute', inset: 0, opacity: 0.2, backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
-              <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', color: 'white', fontSize: '4rem', fontWeight: 800, opacity: 0.15 }}>
-                {project.title.charAt(0)}
-              </div>
-              
-              <div style={{ position: 'absolute', bottom: '16px', left: '20px', zIndex: 2 }}>
-                <span style={{
-                  padding: '6px 12px', background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(10px)',
-                  borderRadius: '6px', fontSize: '0.65rem', fontWeight: 700, color: 'white',
-                  textTransform: 'uppercase', letterSpacing: '0.1em'
-                }}>
-                  {project.category}
-                </span>
-              </div>
-            </div>
-            
-            <div className="project-card-inner" style={{ padding: '2.5rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
-              <h3 style={{ fontSize: '1.6rem', color: 'var(--espresso)', marginBottom: '0.75rem' }}>{project.title}</h3>
-              <p style={{ fontSize: '0.95rem', color: 'var(--clay)', lineHeight: 1.7, marginBottom: '1.75rem', flex: 1 }}>
-                {project.shortDesc}
-              </p>
-              
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', alignItems: 'center', marginBottom: '1.5rem' }}>
-                {project.tech.map(t => (
-                  <span key={t} style={{
-                    fontSize: '0.7rem', fontWeight: 600, color: 'var(--chambray)',
-                    padding: '4px 10px', background: 'var(--glacier)', borderRadius: '4px'
-                  }}>{t}</span>
-                ))}
+    <section id="projects" className="section" ref={sectionRef} aria-label="Projets réalisés">
+      <div className={`container reveal-fade-up ${isVisible ? 'visible' : ''}`}>
+        <div className="section-header">
+          <span className="section-badge">Réalisations</span>
+          <h2 className="section-title">Projets Récents</h2>
+          <div className="section-line"></div>
+        </div>
+
+        <div className="projects-grid">
+          {PROJECTS_DATA.map((project) => (
+            <article key={project.id} className="card project-card">
+              <div className="project-banner" style={{ background: project.accent }}>
+                <div className="project-banner-decor" aria-hidden="true"></div>
+                <span className="project-category-badge">{project.category}</span>
               </div>
 
-              <div>
-                <button
-                  type="button"
-                  onClick={() => setSelectedProj(project)}
-                  style={{
-                    width: '100%',
-                    padding: '12px 20px',
-                    background: 'var(--espresso)',
-                    color: 'var(--white)',
-                    borderRadius: '8px',
-                    fontSize: '0.85rem',
-                    fontWeight: 700,
-                    letterSpacing: '0.05em',
-                    cursor: 'pointer',
-                    transition: 'var(--transition-fast)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '8px'
-                  }}
-                  onMouseEnter={e => { e.currentTarget.style.background = 'var(--chambray)'; }}
-                  onMouseLeave={e => { e.currentTarget.style.background = 'var(--espresso)'; }}
-                >
-                  <span>View Project</span>
-                  <span>→</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
+              <div className="project-body">
+                <h3 className="project-title">{project.title}</h3>
+                <p className="project-desc">{project.shortDesc}</p>
 
-      <ProjectModal
-        project={selectedProj}
-        onClose={() => setSelectedProj(null)}
-      />
-    </section>
-  );
-}
-
-function Education() {
-  const [ref, visible] = useVisible();
-  const experiences = [
-    {
-      year: '2024 – Present',
-      title: 'Engineering Cycle — Computer Science & Artificial Intelligence',
-      school: 'ENSA Safi',
-      sub: 'Final-year engineering student'
-    },
-    {
-      year: '2022 – 2024',
-      title: 'Integrated Preparatory Classes',
-      school: 'ENSA Safi',
-      sub: 'Fundamental Sciences'
-    },
-    {
-      year: '2021 – 2022',
-      title: 'Scientific Baccalaureate',
-      school: 'Awlade Amrane High School',
-      sub: 'Physical Sciences — Mention Très Bien'
-    },
-  ];
-
-  return (
-    <section id="education" ref={ref} className="section-padding" style={{ background: 'var(--white)' }}>
-      <SectionHeader label="Academic Background" title="Education" visible={visible} />
-      
-      <div className="experience-timeline" style={{ position: 'relative', paddingLeft: '2rem', borderLeft: '2px solid rgba(121,163,195,0.2)', maxWidth: '1000px', margin: '0 auto' }}>
-         {experiences.map((exp, idx) => (
-          <div key={idx} style={{
-            marginBottom: '3.5rem', position: 'relative',
-            opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateX(-20px)',
-            transition: `all 0.8s ${idx * 0.15}s`
-          }}>
-            <div className="experience-dot" style={{
-              position: 'absolute', left: '-2.7rem', top: '0', width: '20px', height: '20px',
-              borderRadius: '50%', background: 'var(--chambray)', border: '4px solid var(--white)',
-              boxShadow: '0 0 0 4px rgba(121,163,195,0.1)',
-            }} />
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--chambray)', fontWeight: 600 }}>{exp.year}</span>
-            <h4 style={{ fontSize: '1.4rem', color: 'var(--espresso)', marginTop: '0.5rem', marginBottom: '0.25rem' }}>{exp.title}</h4>
-            <p style={{ fontSize: '1rem', color: 'var(--clay)', marginBottom: '0.5rem', fontWeight: 600 }}>{exp.school}</p>
-            <p style={{ fontSize: '0.88rem', color: 'rgba(58, 33, 25, 0.7)' }}>{exp.sub}</p>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function Certifications() {
-  const [ref, visible] = useVisible();
-
-  return (
-    <section id="certifications" ref={ref} className="section-padding" style={{ 
-      background: 'linear-gradient(to bottom, var(--white), var(--glacier))',
-      position: 'relative'
-    }}>
-      <SectionHeader label="Achievements" title="Certifications" center visible={visible} />
-      
-      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-        {Object.entries(CERTS_BY_CATEGORY).map(([category, certList], catIdx) => (
-          <div key={category} style={{ marginBottom: '3.5rem' }}>
-            <h3 className="cert-group-title">
-              <span style={{ color: 'var(--chambray)' }}>//</span> {category}
-            </h3>
-            
-            <div style={{
-              display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem',
-              opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateY(30px)',
-              transition: `all 0.8s ${catIdx * 0.1}s`
-            }}>
-              {certList.map((cert, i) => (
-                <div 
-                  key={cert.name + i} 
-                  onClick={() => { if (cert.link) window.open(cert.link, '_blank', 'noopener,noreferrer'); }}
-                  className="cert-card"
-                  style={{
-                    background: 'rgba(255, 255, 255, 0.8)',
-                    backdropFilter: 'blur(10px)',
-                    borderRadius: '20px',
-                    padding: '2rem',
-                    textAlign: 'left',
-                    border: '1px solid rgba(121, 163, 195, 0.2)',
-                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                    cursor: cert.link ? 'pointer' : 'default',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '1rem',
-                    boxShadow: '0 4px 20px rgba(0,0,0,0.03)'
-                  }}
-                  onMouseEnter={e => { 
-                    e.currentTarget.style.transform = 'translateY(-6px)'; 
-                    e.currentTarget.style.boxShadow = '0 15px 30px rgba(58, 33, 25, 0.08)'; 
-                    e.currentTarget.style.borderColor = 'var(--chambray)';
-                    e.currentTarget.style.background = 'var(--white)';
-                  }}
-                  onMouseLeave={e => { 
-                    e.currentTarget.style.transform = 'translateY(0)'; 
-                    e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.03)'; 
-                    e.currentTarget.style.borderColor = 'rgba(121, 163, 195, 0.2)';
-                    e.currentTarget.style.background = 'rgba(255, 255, 255, 0.8)';
-                  }}
-                >
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <div style={{
-                      width: 50, height: 50, borderRadius: '12px',
-                      background: 'rgba(121, 163, 195, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      padding: '10px'
-                    }}>
-                      <img src={cert.logo} alt={cert.name} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
-                    </div>
-                    
-                    {cert.link && (
-                      <div style={{
-                        padding: '4px 10px',
-                        background: 'rgba(121, 163, 195, 0.12)',
-                        borderRadius: '100px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '6px'
-                      }}>
-                        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.6rem', color: 'var(--chambray)', fontWeight: 700, textTransform: 'uppercase' }}>
-                          Verify
-                        </span>
-                      </div>
-                    )}
-                  </div>
-
-                  <div style={{ flex: 1 }}>
-                    <h4 style={{ 
-                      fontSize: '1.15rem', color: 'var(--espresso)', 
-                      marginBottom: '0.4rem', fontWeight: 600, lineHeight: 1.3,
-                      fontFamily: 'var(--font-ui)'
-                    }}>
-                      {cert.name}
-                    </h4>
-                    <p style={{ 
-                      fontFamily: 'var(--font-mono)', fontSize: '0.72rem', 
-                      color: 'var(--clay)', textTransform: 'uppercase', 
-                      letterSpacing: '0.08em', fontWeight: 600
-                    }}>
-                      {cert.issuer}
-                    </p>
-                  </div>
-
-                  {cert.link && (
-                    <div style={{
-                      marginTop: 'auto',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '6px',
-                      color: 'var(--chambray)',
-                      fontSize: '0.8rem',
-                      fontWeight: 700,
-                    }}>
-                      <span>View Certificate</span>
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                        <line x1="7" y1="17" x2="17" y2="7"></line>
-                        <polyline points="7 7 17 7 17 17"></polyline>
-                      </svg>
-                    </div>
+                <div className="project-techs">
+                  {project.tech.slice(0, 6).map((t) => (
+                    <span key={t} className="project-tech-tag">
+                      {t}
+                    </span>
+                  ))}
+                  {project.tech.length > 6 && (
+                    <span className="project-tech-tag" style={{ background: 'var(--white)', border: '1px solid var(--chambray-border)' }}>
+                      +{project.tech.length - 6}
+                    </span>
                   )}
                 </div>
-              ))}
+
+                <div className="project-footer">
+                  <button
+                    type="button"
+                    className="btn-project-details"
+                    onClick={() => setSelectedProj(project)}
+                    aria-label={`Consulter les détails du projet ${project.title}`}
+                  >
+                    Détails du projet →
+                  </button>
+
+                  {project.githubLink && (
+                    <a
+                      href={project.githubLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-project-code"
+                      aria-label={`Dépôt GitHub du projet ${project.title}`}
+                    >
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.729.083-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/>
+                      </svg>
+                    </a>
+                  )}
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <ProjectModal project={selectedProj} onClose={() => setSelectedProj(null)} />
+    </section>
+  );
+}
+
+/* ─── Composant Certifications ─── */
+function Certifications() {
+  const [sectionRef, isVisible] = useScrollReveal();
+
+  return (
+    <section id="certifications" className="section section-alt" ref={sectionRef} aria-label="Certifications obtenues">
+      <div className={`container reveal-fade-up ${isVisible ? 'visible' : ''}`}>
+        <div className="section-header text-center">
+          <span className="section-badge">Apprentissage continu</span>
+          <h2 className="section-title">Certifications</h2>
+          <div className="section-line"></div>
+        </div>
+
+        {Object.entries(CERTIFICATIONS_DATA).map(([category, certList]) => (
+          <div key={category} style={{ marginBottom: '32px' }}>
+            <h3 className="cert-category-title">
+              <span style={{ color: 'var(--chambray)' }}>//</span> {category}
+            </h3>
+
+            <div className="certs-grid">
+              {certList.map((cert, idx) => {
+                const CardWrapper = cert.link ? 'a' : 'div';
+                const linkProps = cert.link
+                  ? { href: cert.link, target: '_blank', rel: 'noopener noreferrer' }
+                  : {};
+
+                return (
+                  <CardWrapper
+                    key={cert.name + idx}
+                    {...linkProps}
+                    className="card cert-card"
+                    aria-label={cert.link ? `Consulter le certificat ${cert.name} délivré par ${cert.issuer}` : undefined}
+                  >
+                    <div className="cert-top">
+                      <div className="cert-logo-wrap">
+                        <img src={cert.logo} alt="" className="cert-logo-img" aria-hidden="true" />
+                      </div>
+                      {cert.link && (
+                        <span className="cert-verify-badge">Vérifier ↗</span>
+                      )}
+                    </div>
+
+                    <h4 className="cert-name">{cert.name}</h4>
+                    <p className="cert-issuer">{cert.issuer}</p>
+                  </CardWrapper>
+                );
+              })}
             </div>
           </div>
         ))}
@@ -1192,179 +830,425 @@ function Certifications() {
   );
 }
 
+/* ─── Modal Contact & Envoi Direct ─── */
+function ContactModal({ isOpen, onClose }) {
+  const [copied, setCopied] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: 'Opportunité Stage PFE (Février 2027)',
+    message: '',
+  });
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') onClose();
+    };
+    if (isOpen) {
+      window.addEventListener('keydown', handleKeyDown);
+    }
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
+
+  if (!isOpen) return null;
+
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText(PERSONAL_INFO.email);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2500);
+  };
+
+  const formattedBody = `Bonjour Chayma,
+
+${formData.message ? formData.message + '\n\n' : ''}Cordialement,
+${formData.name ? formData.name : ''}
+${formData.email ? 'Email : ' + formData.email : ''}`;
+
+  const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(
+    PERSONAL_INFO.email
+  )}&su=${encodeURIComponent(formData.subject || 'Prise de contact')}&body=${encodeURIComponent(
+    formattedBody
+  )}`;
+
+  const mailtoUrl = `mailto:${PERSONAL_INFO.email}?subject=${encodeURIComponent(
+    formData.subject || 'Prise de contact'
+  )}&body=${encodeURIComponent(formattedBody)}`;
+
+  const handleSendGmail = () => {
+    window.open(gmailUrl, '_blank', 'noopener,noreferrer');
+  };
+
+  const handleSendMailto = (e) => {
+    e.preventDefault();
+    window.location.href = mailtoUrl;
+  };
+
+  return (
+    <div className="modal-overlay" onClick={onClose} role="dialog" aria-modal="true" aria-labelledby="modal-contact-title">
+      <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '640px' }}>
+        <div className="modal-header">
+          <div>
+            <span className="section-badge" style={{ marginBottom: '2px' }}>Contact Direct</span>
+            <h3 id="modal-contact-title" className="timeline-title" style={{ margin: 0 }}>
+              Contacter Chayma EL HOUMA
+            </h3>
+          </div>
+          <button
+            type="button"
+            className="modal-close-btn"
+            onClick={onClose}
+            aria-label="Fermer la boîte de dialogue"
+          >
+            ✕
+          </button>
+        </div>
+
+        <div className="modal-body">
+          {/* Options directes & copie rapide */}
+          <div className="contact-quick-actions">
+            <div>
+              <div style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--espresso)', marginBottom: '4px' }}>
+                Adresse email directe :
+              </div>
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.95rem', color: 'var(--chambray)', fontWeight: 600 }}>
+                {PERSONAL_INFO.email}
+              </div>
+              {copied && (
+                <div className="contact-copy-badge">
+                  ✓ Adresse copiée dans le presse-papier !
+                </div>
+              )}
+            </div>
+
+            <div className="contact-quick-buttons">
+              <button
+                type="button"
+                className="btn-quick-action"
+                onClick={handleCopyEmail}
+                title="Copier l'adresse email"
+              >
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span>{copied ? 'Copié !' : 'Copier l’adresse'}</span>
+              </button>
+
+              <button
+                type="button"
+                className="btn-quick-action primary"
+                onClick={handleSendGmail}
+                title="Ouvrir directement dans Gmail (nouvel onglet)"
+              >
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/>
+                </svg>
+                <span>Ouvrir dans Gmail</span>
+              </button>
+
+              <button
+                type="button"
+                className="btn-quick-action"
+                onClick={handleSendMailto}
+                title="Ouvrir dans votre client de messagerie par défaut (Outlook, Mail, etc.)"
+              >
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+                <span>Client Mail</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Formulaire de message avec pré-remplissage */}
+          <form onSubmit={handleSendMailto}>
+            <div className="contact-form-group">
+              <label htmlFor="contact-name" className="contact-form-label">
+                Votre Nom ou Entreprise
+              </label>
+              <input
+                id="contact-name"
+                type="text"
+                className="contact-form-input"
+                placeholder="Ex: Entreprise Tech / Recruteur"
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              />
+            </div>
+
+            <div className="contact-form-group">
+              <label htmlFor="contact-email" className="contact-form-label">
+                Votre Email de contact
+              </label>
+              <input
+                id="contact-email"
+                type="email"
+                className="contact-form-input"
+                placeholder="votre-email@exemple.com"
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              />
+            </div>
+
+            <div className="contact-form-group">
+              <label htmlFor="contact-subject" className="contact-form-label">
+                Sujet
+              </label>
+              <input
+                id="contact-subject"
+                type="text"
+                className="contact-form-input"
+                value={formData.subject}
+                onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+              />
+            </div>
+
+            <div className="contact-form-group">
+              <label htmlFor="contact-message" className="contact-form-label">
+                Message (Optionnel)
+              </label>
+              <textarea
+                id="contact-message"
+                rows="4"
+                className="contact-form-textarea"
+                placeholder="Bonjour Chayma, nous avons découvert votre profil..."
+                value={formData.message}
+                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+              ></textarea>
+            </div>
+
+            <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginTop: '20px' }}>
+              <button
+                type="button"
+                className="btn-primary"
+                onClick={handleSendGmail}
+                style={{ flex: 1, justifyContent: 'center' }}
+              >
+                <span>Envoyer via Gmail ➔</span>
+              </button>
+              <button
+                type="submit"
+                className="btn-secondary"
+                style={{ flex: 1, justifyContent: 'center' }}
+              >
+                <span>Envoyer via Mail ➔</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ─── Composant Contact ─── */
 function Contact() {
-  const [ref, visible] = useVisible();
-  
-  const contacts = [
-    { 
-      label: 'Email', 
-      val: 'chaymaelhouma2005@gmail.com', 
-      link: 'mailto:chaymaelhouma2005@gmail.com', 
+  const [sectionRef, isVisible] = useScrollReveal();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const contactMethods = [
+    {
+      label: 'Email professionnel',
+      val: PERSONAL_INFO.email,
+      onClick: () => setIsModalOpen(true),
       icon: (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
           <polyline points="22,6 12,13 2,6"></polyline>
         </svg>
       ),
-      color: 'var(--chambray)'
     },
-    { 
-      label: 'LinkedIn', 
-      val: 'Chayma EL HOUMA', 
-      link: 'https://www.linkedin.com/in/chaymaelhouma', 
+    {
+      label: 'Téléphone',
+      val: PERSONAL_INFO.phone,
+      link: `tel:${PERSONAL_INFO.phone.replace(/\s+/g, '')}`,
       icon: (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+        </svg>
+      ),
+    },
+    {
+      label: 'LinkedIn',
+      val: 'Chayma EL HOUMA',
+      link: PERSONAL_INFO.linkedin,
+      icon: (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
           <rect x="2" y="9" width="4" height="12"></rect>
           <circle cx="4" cy="4" r="2"></circle>
         </svg>
       ),
-      color: '#0077B5'
     },
-    { 
-      label: 'GitHub', 
-      val: 'ChaymaELHOUMA', 
-      link: 'https://github.com/ChaymaELHOUMA', 
+    {
+      label: 'GitHub',
+      val: 'ChaymaELHOUMA',
+      link: PERSONAL_INFO.github,
       icon: (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
         </svg>
       ),
-      color: 'var(--espresso)'
-    }
+    },
   ];
 
   return (
-    <section id="contact" ref={ref} className="section-padding" style={{ 
-      background: 'var(--white)',
-      position: 'relative',
-      overflow: 'hidden'
-    }}>
-      <div style={{
-        position: 'absolute', bottom: '-10%', right: '-5%', width: '40%', height: '40%',
-        background: 'radial-gradient(circle, var(--glacier) 0%, transparent 70%)',
-        opacity: 0.5, pointerEvents: 'none'
-      }} />
-
-      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+    <section id="contact" className="section" ref={sectionRef} aria-label="Me contacter">
+      <div className={`container reveal-fade-up ${isVisible ? 'visible' : ''}`}>
         <div className="contact-grid">
           
-          <div style={{
-            opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateX(-30px)',
-            transition: 'all 0.8s ease'
-          }}>
-            <SectionHeader label="Contact" title="Ready for New Challenges" visible={visible} />
-            <p style={{
-              fontSize: '1.15rem', color: 'var(--clay)', lineHeight: 1.7, marginBottom: '2.5rem'
-            }}>
-              I am currently seeking a Final-Year Engineering Internship (PFE) starting in February 2027, where I can contribute to real-world software and web development projects while continuing to grow my technical skills.
+          <div>
+            <div className="section-header" style={{ marginBottom: '24px' }}>
+              <span className="section-badge">Opportunités</span>
+              <h2 className="section-title">Prête pour de Nouveaux Défis</h2>
+              <div className="section-line"></div>
+            </div>
+
+            <p style={{ fontSize: '1.05rem', lineHeight: 1.7, color: 'var(--espresso-muted)', marginBottom: '24px' }}>
+              Actuellement à la recherche d’un <strong>Stage de Fin d’Études (PFE)</strong> débutant en <strong>février 2027</strong>, je suis enthousiaste à l'idée d’intégrer une équipe dynamique où je pourrai apporter mon expertise en développement backend Java/Spring Boot, interfaces React et IA générative.
             </p>
+
+            <button
+              type="button"
+              className="btn-primary"
+              style={{ display: 'inline-flex', cursor: 'pointer' }}
+              onClick={() => setIsModalOpen(true)}
+              aria-label="Ouvrir la fenêtre d'envoi de message direct"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
+              <span>Envoyer un message direct</span>
+            </button>
           </div>
 
-          <div style={{
-            display: 'flex', flexDirection: 'column', gap: '1.5rem',
-            opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateX(30px)',
-            transition: 'all 0.8s 0.2s ease'
-          }}>
-            {contacts.map((item) => (
-              <a 
-                key={item.label} 
-                href={item.link} 
-                target={item.link.startsWith('mailto:') ? undefined : '_blank'} 
-                rel={item.link.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
-                className="contact-card"
-                style={{ textDecoration: 'none' }}
-                onMouseEnter={e => { 
-                  e.currentTarget.style.transform = 'translateX(10px)'; 
-                  e.currentTarget.style.boxShadow = 'var(--shadow-lg)';
-                  e.currentTarget.style.borderColor = item.color;
-                }}
-                onMouseLeave={e => { 
-                  e.currentTarget.style.transform = 'translateX(0)'; 
-                  e.currentTarget.style.boxShadow = 'var(--shadow-sm)';
-                  e.currentTarget.style.borderColor = 'rgba(121, 163, 195, 0.1)';
-                }}
-              >
-                <div className="contact-icon" style={{ 
-                  width: 54, height: 54, borderRadius: '14px', 
-                  background: `${item.color}10`, color: item.color,
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  transition: 'all 0.3s',
-                }}>
-                  {item.icon}
-                </div>
-                <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--clay)', letterSpacing: '0.15em', marginBottom: '0.3rem' }}>
-                    {item.label}
+          <div className="contact-card-list">
+            {contactMethods.map((c) => {
+              if (c.onClick) {
+                return (
+                  <button
+                    key={c.label}
+                    type="button"
+                    onClick={c.onClick}
+                    className="contact-item-card"
+                    style={{ width: '100%', textAlign: 'left', cursor: 'pointer', background: 'var(--white)', font: 'inherit' }}
+                    aria-label={`${c.label} : ${c.val} (cliquer pour ouvrir les options d'envoi)`}
+                  >
+                    <div className="contact-item-icon">{c.icon}</div>
+                    <div style={{ flex: 1 }}>
+                      <div className="contact-item-label">{c.label}</div>
+                      <div className="contact-item-val">{c.val}</div>
+                    </div>
+                    <div style={{ color: 'var(--chambray)' }} aria-hidden="true">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                      </svg>
+                    </div>
+                  </button>
+                );
+              }
+
+              return (
+                <a
+                  key={c.label}
+                  href={c.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="contact-item-card"
+                  aria-label={`${c.label} : ${c.val}`}
+                >
+                  <div className="contact-item-icon">{c.icon}</div>
+                  <div style={{ flex: 1 }}>
+                    <div className="contact-item-label">{c.label}</div>
+                    <div className="contact-item-val">{c.val}</div>
                   </div>
-                  <div className="contact-card-value">
-                    {item.val}
+                  <div style={{ color: 'var(--chambray)' }} aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
                   </div>
-                </div>
-                <div style={{ color: 'var(--glacier)', transition: '0.3s' }}>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="9 18 15 12 9 6"></polyline>
-                  </svg>
-                </div>
-              </a>
-            ))}
+                </a>
+              );
+            })}
           </div>
 
         </div>
       </div>
+
+      <ContactModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </section>
   );
 }
 
+/* ─── Footer ─── */
 function Footer() {
   return (
-    <footer style={{ padding: '4rem clamp(16px, 5vw, 8vw)', background: 'var(--espresso)', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
-      <div className="footer-inner">
+    <footer className="footer" role="contentinfo">
+      <div className="container footer-inner">
         <div>
-          <div style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--white)', marginBottom: '0.5rem' }}>
-            C<span style={{ color: 'var(--chambray)' }}>.</span>EH
-          </div>
-          <p style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.4)' }}>© 2026 Chayma EL HOUMA. All rights reserved.</p>
+          <Logo dark />
+          <p className="footer-copy" style={{ marginTop: '10px' }}>
+            © {new Date().getFullYear()} Chayma EL HOUMA. Tous droits réservés.
+          </p>
         </div>
-        <div className="footer-links">
-          {['Home', 'About', 'Skills', 'Experience', 'Projects', 'Contact'].map(link => (
-            <a key={link} href={`#${link.toLowerCase()}`} style={{ fontSize: '0.8rem', color: 'var(--bisque)', fontWeight: 600, transition: 'var(--transition-fast)' }}
-            onMouseEnter={e => e.target.style.color = 'var(--chambray)'}
-            onMouseLeave={e => e.target.style.color = 'var(--bisque)'}
-            >{link}</a>
-          ))}
-        </div>
+
+        <ul className="footer-links">
+          {['Accueil', 'À propos', 'Compétences', 'Parcours', 'Projets', 'Contact'].map((item, idx) => {
+            const anchor = ['home', 'about', 'skills', 'parcours', 'projects', 'contact'][idx];
+            return (
+              <li key={item}>
+                <a href={`#${anchor}`} className="footer-link">
+                  {item}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </footer>
   );
 }
 
+/* ─── Application Principale ─── */
 export default function App() {
   const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
-    const sections = ['home', 'about', 'skills', 'experience', 'projects', 'education', 'certifications', 'contact'];
-    const obs = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) setActiveSection(e.target.id); });
-    }, { threshold: 0.25 });
-    sections.forEach(id => {
+    const sectionIds = ['home', 'about', 'skills', 'parcours', 'projects', 'certifications', 'contact'];
+    
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { threshold: 0.25 }
+    );
+
+    sectionIds.forEach((id) => {
       const el = document.getElementById(id);
-      if (el) obs.observe(el);
+      if (el) observer.observe(el);
     });
-    return () => obs.disconnect();
+
+    return () => observer.disconnect();
   }, []);
 
   return (
-    <div style={{ background: 'var(--white)', minHeight: '100vh' }}>
-      <Nav active={activeSection} />
-      <Hero />
-      <About />
-      <Skills />
-      <ProfessionalExperience />
-      <Projects />
-      <Education />
-      <Certifications />
-      <Contact />
+    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <Navbar activeSection={activeSection} />
+      <main id="main-content">
+        <Hero />
+        <About />
+        <Skills />
+        <Timeline />
+        <Projects />
+        <Certifications />
+        <Contact />
+      </main>
       <Footer />
     </div>
   );
